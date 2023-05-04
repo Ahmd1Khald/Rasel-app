@@ -1,13 +1,14 @@
 import 'package:chatapp/bloc/cubit.dart';
 import 'package:chatapp/bloc/state.dart';
-import 'package:chatapp/local/cachehelper.dart';
-import 'package:chatapp/shared/const.dart';
+import 'package:chatapp/core/helpers/cachehelper.dart';
+import 'package:chatapp/core/utils/constants/variables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
-import '../shared/components.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hexcolor/hexcolor.dart';
+import '../core/utils/constants/colors.dart';
+import '../core/widgets/components.dart';
 import 'mydrawer.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -19,43 +20,57 @@ class ChatScreen extends StatelessWidget {
     var scrollController = ScrollController();
     CollectionReference message =
         FirebaseFirestore.instance.collection('Messages');
-
     return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return StreamBuilder<QuerySnapshot>(
             stream: message.orderBy('createdAt', descending: true).snapshots(),
             builder: (context, snapshot) {
-              print(CacheHelper.getDate(key: 'userEmail'));
+              print(CacheHelper.getDate(key: 'AppVariables.userEmail'));
               print(CacheHelper.getDate(key: 'userName'));
               if (snapshot.hasError) {
                 return const Text("Something went wrong");
               }
               if (snapshot.hasData) {
                 return Scaffold(
-                  backgroundColor: Colors.white,
+                  backgroundColor: HexColor('#dedede'),
                   appBar: AppBar(
-                    backgroundColor: mainColor,
-                    centerTitle: true,
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/chat.png',
-                          width: 35,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          'Chat App',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        )
-                      ],
-                    ),
+                    backgroundColor: AppColors.appColor,
+                    // centerTitle: true,
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SpinKitSpinningCircle(
+                            itemBuilder: (BuildContext context, int index) {
+                              return const DecoratedBox(
+                                decoration: BoxDecoration(
+                                    //color: index.isEven ? Colors.white : Colors.white.withOpacity(0.5),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/logo.png'))),
+                              );
+                            },
+                            duration: const Duration(milliseconds: 2500),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            'Chat App',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 20),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 100,
+                      ),
+                    ],
                   ),
-                  drawer: MyDrawer(),
+                  drawer: const MyDrawer(),
                   body: Column(
                     children: [
                       Expanded(
@@ -64,21 +79,23 @@ class ChatScreen extends StatelessWidget {
                           controller: scrollController,
                           shrinkWrap: true,
                           //physics: const FixedExtentScrollPhysics(),
-                          itemBuilder: (context, index) =>
-                              snapshot.data!.docs[index]['userEmail'] ==
-                                      userEmail
-                                  ? builtMyMessage(
-                                      backgroundColor: mainColor!,
-                                      msg: snapshot.data!.docs[index]['text'],
-                                      time: snapshot.data!.docs[index]['time'],
-                                      year: snapshot.data!.docs[index]['year'],
-                                    )
-                                  : builtFriendsMessage(
-                                      backgroundColor: Colors.grey,
-                                      msg: snapshot.data!.docs[index]['text'],
-                                      time: snapshot.data!.docs[index]['time'],
-                                      year: snapshot.data!.docs[index]['year'],
-                                    ),
+                          itemBuilder: (context, index) => snapshot
+                                      .data!.docs[index]['userEmail'] ==
+                                  AppVariables.userEmail
+                              ? builtMyMessage(
+                                  backgroundColor: AppColors.messageColor!,
+                                  msg: snapshot.data!.docs[index]['text'],
+                                  time: snapshot.data!.docs[index]['time'],
+                                  year: snapshot.data!.docs[index]['year'],
+                                  image: snapshot.data!.docs[index]['image'],
+                                )
+                              : builtFriendsMessage(
+                                  image: snapshot.data!.docs[index]['image'],
+                                  backgroundColor: Colors.grey,
+                                  msg: snapshot.data!.docs[index]['text'],
+                                  time: snapshot.data!.docs[index]['time'],
+                                  year: snapshot.data!.docs[index]['year'],
+                                ),
 
                           itemCount: snapshot.data!.docs.isNotEmpty
                               ? snapshot.data!.docs.length
@@ -90,31 +107,34 @@ class ChatScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFormField(
-                              cursorColor: mainColor,
+                              cursorColor: AppColors.appColor,
                               cursorHeight: 30,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                     onPressed: () {
                                       if (messageController.text.isNotEmpty) {
                                         AppCubit.get(context).addMessage(
-                                          email: userEmail,
-                                          messageController: messageController,
-                                          scrollController: scrollController,
-                                        );
+                                            email: AppVariables.userEmail,
+                                            messageController:
+                                                messageController,
+                                            scrollController: scrollController,
+                                            image: CacheHelper.getDate(
+                                                key: 'photoURL'));
                                       }
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.send,
-                                      color: mainColor,
+                                      color: AppColors.appColor,
                                     )),
                                 hintText: 'Message',
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mainColor!)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mainColor!)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mainColor!)),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.appColor)),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.appColor)),
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.appColor)),
                               ),
+
                               controller: messageController,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
@@ -133,7 +153,7 @@ class ChatScreen extends StatelessWidget {
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  backgroundColor: mainColor,
+                  backgroundColor: AppColors.appColor,
                   centerTitle: true,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -155,40 +175,41 @@ class ChatScreen extends StatelessWidget {
                 ),
                 body: Column(
                   children: [
-                    Center(
+                    const Center(
                       child: CircularProgressIndicator(
-                        color: mainColor,
+                        color: AppColors.appColor,
                       ),
                     ),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
-                        cursorColor: mainColor,
+                        cursorColor: AppColors.appColor,
                         cursorHeight: 30,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                               onPressed: () {
                                 AppCubit.get(context).addMessage(
-                                  email: userEmail,
+                                  image: CacheHelper.getDate(key: 'photoURL'),
+                                  email: AppVariables.userEmail,
                                   messageController: messageController,
                                   scrollController: scrollController,
                                 );
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.send,
-                                color: mainColor,
+                                color: AppColors.appColor,
                               )),
                           hintText: 'Message',
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: mainColor!)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: mainColor!)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: mainColor!)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.appColor)),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.appColor)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.appColor)),
                         ),
                         controller: messageController,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                         validator: (String? value) {
                           if (value!.isEmpty) {
                             return 'Email is too small';

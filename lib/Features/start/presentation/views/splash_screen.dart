@@ -1,40 +1,38 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:chatapp/shared/const.dart';
+import 'package:chatapp/core/utils/const.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/utils/constants/assets_images.dart';
+import '../../../../core/utils/constants/colors.dart';
 import 'loading_screen.dart';
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      AnimatedSplashScreen(
-        backgroundColor: Colors.white,
+      body: AnimatedSplashScreen(
+        backgroundColor: AppColors.appColor,
         splash: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 120,
-              width: 90,
+              height: 150.h,
+              width: 120.w,
               child: Image.asset(
-                'assets/images/chat.png',
+                AssetsImages.logoImage,
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 10,),
-            // Text('سند للخدمات الماليه',style: TextStyle(fontSize: 16.sp,color: K.mainColor),)
           ],
         ),
-
-        nextScreen: widget,
+        nextScreen: const LoadingScreen(),
         splashIconSize: 250,
-        duration: 4000,
-        splashTransition: SplashTransition.sizeTransition,
-        animationDuration: const Duration(seconds: 2),
+        duration: 3000,
+        splashTransition: SplashTransition.slideTransition,
+        animationDuration: const Duration(seconds: 1),
       ),
-
     );
   }
 }

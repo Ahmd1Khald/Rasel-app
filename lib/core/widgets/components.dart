@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'const.dart';
+import '../helpers/cachehelper.dart';
+import '../utils/const.dart';
+import '../utils/constants/fonts_sizes.dart';
+import '../utils/constants/fonts_sizes.dart';
 
 Widget sharedTextField(
         {required textEditingController,
         required Function(String) validation,
-        required String lable,
-        required bool obsecure,
+        required String label,
+        required bool obscure,
         Function()? sufIconFun,
         required IconData prefIcon}) =>
     TextFormField(
       controller: textEditingController,
       validator: (String) => validation(String!),
-      obscureText: obsecure,
+      obscureText: obscure,
       decoration: InputDecoration(
-        label: Text(lable),
+        label: Text(label),
         suffixIcon: IconButton(
             onPressed: () => sufIconFun!(),
-            icon: Icon(obsecure ? Icons.visibility_off : Icons.visibility)),
+            icon: Icon(obscure ? Icons.visibility_off : Icons.visibility)),
         prefixIcon: Icon(prefIcon),
         border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue)),
@@ -41,7 +45,7 @@ void navigateAndRemove({context, widget}) => Navigator.pushAndRemoveUntil(
       (route) => false,
     );
 
-void myToast({required var state, required toastState toastState}) =>
+void myToast({required var state, required ToastState toastState}) =>
     Fluttertoast.showToast(
         msg: '$state',
         toastLength: Toast.LENGTH_SHORT,
@@ -51,13 +55,13 @@ void myToast({required var state, required toastState toastState}) =>
         textColor: Colors.white,
         fontSize: 16.0);
 
-enum toastState { Success, Warning, Error }
+enum ToastState { success, warning, error }
 
-Color toastColor(toastState state) {
+Color toastColor(ToastState state) {
   Color? color;
-  if (state == toastState.Success) {
+  if (state == ToastState.success) {
     color = Colors.green;
-  } else if (state == toastState.Warning) {
+  } else if (state == ToastState.warning) {
     color = Colors.amber;
   } else {
     color = Colors.red;
@@ -74,32 +78,46 @@ Widget builtMyMessage(
         required String msg,
         required String time,
         required String year,
-        required}) =>
+        required String image}) =>
     Column(
       children: [
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Container(
-            padding:
-                const EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 15),
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  bottomRight: Radius.circular(32),
-                  bottomLeft: Radius.circular(32)),
-            ),
-            child: Text(
-              msg,
-              style: GoogleFonts.aBeeZee(
-                fontSize: 15,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                padding: const EdgeInsets.only(
+                    right: 16, left: 16, top: 16, bottom: 15),
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(32),
+                      bottomRight: Radius.circular(32),
+                      bottomLeft: Radius.circular(32)),
+                ),
+                child: Text(
+                  msg,
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: AppFontsSize.messageFontSize.toDouble()  ,
+                  ),
+                ),
               ),
             ),
-          ),
+            CacheHelper.getDate(key: 'photoURL') != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(image),
+                    radius: AppFontsSize.messageFontSize,
+                  )
+                : CircleAvatar(
+                    backgroundImage: const AssetImage('assets/images/user.png'),
+                    radius: AppFontsSize.messageFontSize,
+                  ),
+          ],
         ),
         Row(
-mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
                 onPressed: () {
@@ -138,29 +156,44 @@ Widget builtFriendsMessage({
   required String msg,
   required String time,
   required String year,
+  required String image,
 }) =>
     Column(
       children: [
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Container(
-            padding:
-                const EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 15),
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(32),
-                  bottomRight: Radius.circular(32),
-                  bottomLeft: Radius.circular(32)),
-            ),
-            child: Text(
-              msg,
-              style: GoogleFonts.aBeeZee(
-                fontSize: 15,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CacheHelper.getDate(key: 'photoURL') != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(image),
+                    radius: AppFontsSize.messageFontSize,
+                  )
+                : CircleAvatar(
+                    backgroundImage: const AssetImage('assets/images/user.png'),
+                    radius: AppFontsSize.messageFontSize,
+                  ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                padding: const EdgeInsets.only(
+                    right: 16, left: 16, top: 16, bottom: 15),
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(32),
+                      bottomRight: Radius.circular(32),
+                      bottomLeft: Radius.circular(32)),
+                ),
+                child: Text(
+                  msg,
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: AppFontsSize.messageFontSize.toDouble(),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
         Row(
           children: [

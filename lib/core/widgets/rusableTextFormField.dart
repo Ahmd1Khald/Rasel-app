@@ -32,18 +32,21 @@ class _ReusableTextFormFieldState extends State<ReusableTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: Colors.white,
       decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.password,color: Colors.white,),
         hintText: widget.hintText,
+        hintStyle: const TextStyle(color: Colors.white,),
         suffixIcon: IconButton(
-          icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,color: Colors.white,),
           onPressed: _toggle,
         ),
         border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue)),
+            borderSide: BorderSide(color: Colors.white)),
         enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey)),
+            borderSide: BorderSide(color: Colors.white)),
         focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue)),
+            borderSide: BorderSide(color: Colors.green)),
       ),
       controller: widget.controller,
       obscureText: _obscureText,

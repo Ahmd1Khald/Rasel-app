@@ -1,23 +1,23 @@
 import 'package:chatapp/bloc/cubit.dart';
 import 'package:chatapp/bloc/state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../core/helpers/cachehelper.dart';
+import '../core/utils/constants/colors.dart';
+import '../core/utils/constants/functions.dart';
+import '../core/widgets/rusableTextFormField.dart';
+import '../core/widgets/components.dart';
+import '../core/utils/const.dart';
 
-import '../local/cachehelper.dart';
-import '../rusableTextFormField.dart';
-import '../shared/components.dart';
-import '../shared/const.dart';
-import 'chat_screen.dart';
 
-class RegiterScreen extends StatefulWidget {
-  const RegiterScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegiterScreen> createState() => _RegiterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegiterScreenState extends State<RegiterScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
@@ -25,31 +25,66 @@ class _RegiterScreenState extends State<RegiterScreen> {
     var passController = TextEditingController();
     var nameController = TextEditingController();
     var formKey = GlobalKey<FormState>();
+
+
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is AppSuccessRegisterState) {
-          myToast(state: "Register Success", toastState: toastState.Success);
-          submit(context);
+          myToast(state: "Register Success", toastState: ToastState.success);
+          AppFunctions.submit(context);
         } else if (state is AppErrorRegisterState) {
-          myToast(state: "Register Failed", toastState: toastState.Error);
+          myToast(state: "Register Failed", toastState: ToastState.error);
         }
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: mainColor,
-          appBar: AppBar(
-            backgroundColor: mainColor,
+          backgroundColor: AppColors.appColor,
+          /*appBar: AppBar(
+            backgroundColor: AppColors.appColor,
             elevation: 0,
-          ),
+          ),*/
           body: SingleChildScrollView(
             child: Form(
               key: formKey,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(top: 90.0,right: 20,left: 20),
                 child: Column(
                   children: [
-                    const Image(
-                      image: AssetImage('assets/images/login.png'),
+                    Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          AppCubit.get(context).image == null
+                              ? const CircleAvatar(
+                            radius: 65,
+                            backgroundColor: Colors.grey,
+                            backgroundImage:
+                            AssetImage('assets/images/user.png'),
+                          )
+                              : CircleAvatar(
+                            radius: 65,
+                            backgroundColor: Colors.grey,
+                            backgroundImage: FileImage(
+                              AppCubit.get(context).image!,
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.white70,
+                            radius: 18,
+                            child: Center(
+                              child: IconButton(
+                                onPressed: () {
+                                  AppCubit.get(context).setImage();
+                                },
+                                icon: const Icon(
+                                  Icons.add_a_photo,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -57,12 +92,13 @@ class _RegiterScreenState extends State<RegiterScreen> {
                     TextFormField(
                       decoration: const InputDecoration(
                         hintText: 'Name',
+                        hintStyle: TextStyle(color: AppColors.borderColor),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: Colors.green)),
                       ),
                       controller: nameController,
                       keyboardType: TextInputType.name,
@@ -79,12 +115,13 @@ class _RegiterScreenState extends State<RegiterScreen> {
                     TextFormField(
                       decoration: const InputDecoration(
                         hintText: 'Phone Number',
+                        hintStyle: TextStyle(color: AppColors.borderColor),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: Colors.green)),
                       ),
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
@@ -101,12 +138,13 @@ class _RegiterScreenState extends State<RegiterScreen> {
                     TextFormField(
                       decoration: const InputDecoration(
                         hintText: 'Email',
+                        hintStyle: TextStyle(color: AppColors.borderColor),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(color: AppColors.borderColor)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: Colors.green)),
                       ),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -134,13 +172,14 @@ class _RegiterScreenState extends State<RegiterScreen> {
                       },
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     Container(
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.white)),
                       child: MaterialButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
@@ -149,6 +188,7 @@ class _RegiterScreenState extends State<RegiterScreen> {
                                 nameController: nameController,
                                 phoneController: phoneController,
                                 passController: passController,
+                                image: CacheHelper.getDate(key: 'photoURL')
                               );
                               // try {
                               //   AppCubit.get(context).registerUser(
@@ -170,21 +210,18 @@ class _RegiterScreenState extends State<RegiterScreen> {
                             }
                           },
                           child: state is AppLoadingRegisterState
-                              ? const Center(
+                              ? Center(
                                   child: CircularProgressIndicator(
-                                    color: Colors.white,
+                                    color: AppColors.appColor,
                                   ),
                                 )
-                              : const Text(
+                              : Text(
                                   'Register',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.appColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22),
                                 )),
-                    ),
-                    const SizedBox(
-                      height: 30,
                     ),
                   ],
                 ),
