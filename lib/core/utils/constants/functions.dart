@@ -1,3 +1,4 @@
+import 'package:chatapp/core/utils/app_route.dart';
 import 'package:intl/intl.dart';
 
 import '../../../screens/chat_screen.dart';
@@ -22,10 +23,7 @@ class AppFunctions{
   }
 
   static void submit(context) {
-    CacheHelper.saveData(key: 'chatPage', value: true);
-    navigateAndRemove(
-      context: context,
-      widget: const ChatScreen(),
-    );
+    CacheHelper.saveData(key: 'LoginDone', value: true);
+    AppRouter.router.pushReplacement(AppRouter.kLoadingView);
   }
 }

@@ -11,12 +11,6 @@ class AppErrorRegisterState extends AppStates {}
 
 class AppLoadingRegisterState extends AppStates {}
 
-class AppSuccessLoginState extends AppStates {}
-
-class AppErrorLoginState extends AppStates {}
-
-class AppLoadingLoginState extends AppStates {}
-
 class AppSuccessSendMessageState extends AppStates {}
 
 class AppErrorSendMessageState extends AppStates {}

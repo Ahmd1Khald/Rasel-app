@@ -2,13 +2,11 @@ import 'package:chatapp/bloc/cubit.dart';
 import 'package:chatapp/bloc/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../core/helpers/cachehelper.dart';
-import '../core/utils/constants/colors.dart';
-import '../core/utils/constants/functions.dart';
-import '../core/widgets/rusableTextFormField.dart';
-import '../core/widgets/components.dart';
-import '../core/utils/const.dart';
-
+import '../../../../../core/helpers/cachehelper.dart';
+import '../../../../../core/utils/constants/colors.dart';
+import '../../../../../core/utils/constants/functions.dart';
+import '../../../../../core/widgets/rusableTextFormField.dart';
+import '../../../../../core/widgets/components.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

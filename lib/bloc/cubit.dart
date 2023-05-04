@@ -2,7 +2,7 @@ import 'package:chatapp/bloc/state.dart';
 import 'package:chatapp/core/utils/constants/fonts_sizes.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
 import 'package:chatapp/core/utils/constants/variables.dart';
-import 'package:chatapp/screens/login_screen.dart';
+import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +13,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../core/helpers/cachehelper.dart';
-import '../core/utils/const.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
@@ -56,22 +55,6 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print('error when user email and password user data ${error.toString()}');
       emit(AppErrorRegisterState());
-    });
-  }
-
-  Future<void> loginUser(TextEditingController emailController,
-      TextEditingController passController) async {
-    emit(AppLoadingLoginState());
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: emailController.text, password: passController.text)
-        .then((value) {
-      AppVariables.userEmail = emailController.text;
-      CacheHelper.saveData(key: 'userEmail', value: emailController.text);
-      emit(AppSuccessLoginState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(AppErrorLoginState());
     });
   }
 

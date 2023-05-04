@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../helpers/cachehelper.dart';
-import '../utils/const.dart';
-import '../utils/constants/fonts_sizes.dart';
 import '../utils/constants/fonts_sizes.dart';
 
 Widget sharedTextField(

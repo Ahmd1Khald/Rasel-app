@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Chat App',
+         //home: SplashScreen(),
           routerConfig: AppRouter.router,
         );
       },
