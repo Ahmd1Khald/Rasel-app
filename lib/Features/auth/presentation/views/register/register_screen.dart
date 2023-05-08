@@ -1,5 +1,6 @@
 import 'package:chatapp/bloc/cubit.dart';
 import 'package:chatapp/bloc/state.dart';
+import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/helpers/cachehelper.dart';
@@ -36,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.appColor,
+          backgroundColor: AppColors.backgroundColor,
           /*appBar: AppBar(
             backgroundColor: AppColors.appColor,
             elevation: 0,
@@ -188,6 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 passController: passController,
                                 image: CacheHelper.getDate(key: 'photoURL')
                               );
+                              AppFunctions.pushReplacement(context: context,screen: const ChatScreen());
                               // try {
                               //   AppCubit.get(context).registerUser(
                               //       emailController, passController);
@@ -210,13 +212,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: state is AppLoadingRegisterState
                               ? Center(
                                   child: CircularProgressIndicator(
-                                    color: AppColors.appColor,
+                                    color: AppColors.backgroundColor,
                                   ),
                                 )
                               : Text(
                                   'Register',
                                   style: TextStyle(
-                                      color: AppColors.appColor,
+                                      color: AppColors.backgroundColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22),
                                 )),

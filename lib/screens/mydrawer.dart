@@ -37,8 +37,8 @@ class MyDrawer extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     children: [
                       DrawerHeader(
-                        decoration: const BoxDecoration(
-                          color: AppColors.appColor,
+                        decoration: BoxDecoration(
+                          color: AppColors.backgroundColor,
                         ),
                         child: Column(
                           children: [
@@ -129,9 +129,9 @@ class MyDrawer extends StatelessWidget {
                         },
                       ),
                       if (state is AppLoadingLogoutState)
-                        const Center(
+                        Center(
                           child: CircularProgressIndicator(
-                            color: AppColors.appColor,
+                            color: AppColors.backgroundColor,
                           ),
                         )
                     ],
@@ -143,8 +143,8 @@ class MyDrawer extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   children: [
                     DrawerHeader(
-                      decoration: const BoxDecoration(
-                        color: AppColors.appColor,
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundColor,
                       ),
                       child: Column(
                         children: [
@@ -223,9 +223,9 @@ class MyDrawer extends StatelessWidget {
                       },
                     ),
                     if (state is AppLoadingLogoutState)
-                      const Center(
+                      Center(
                         child: CircularProgressIndicator(
-                          color: AppColors.appColor,
+                          color: AppColors.backgroundColor,
                         ),
                       )
                   ],

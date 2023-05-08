@@ -35,7 +35,7 @@ class _SettingScreenState extends State<SettingScreen> {
             title: const Text(
               "Settings",
             ),
-            backgroundColor: AppColors.appColor,
+            backgroundColor: AppColors.backgroundColor,
           ),
           body: SafeArea(
             child: Center(
@@ -56,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       Slider(
                         value: AppFontsSize.messageFontSize,
-                        activeColor: AppColors.appColor,
+                        activeColor: AppColors.backgroundColor,
                         inactiveColor: Colors.grey,
                         min: 10,
                         max: 40,
@@ -79,7 +79,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.appColor),
+                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.backgroundColor),
                               onPressed: () {
                                 setState(() {
                                   AppFontsSize.messageFontSize = 15;
@@ -90,9 +90,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 fontSize: 15,
                               ),)),
                           if (state is AppLoadingGetFontSizeState)
-                            const Center(child: LinearProgressIndicator(color: AppColors.appColor,),),
+                            Center(child: LinearProgressIndicator(color: AppColors.backgroundColor,),),
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.appColor),
+                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.backgroundColor),
                               onPressed: () {
                                 AppCubit.get(context).saveSettings();
                                 Navigator.of(context).pop();

@@ -1,5 +1,5 @@
 import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
-import 'package:chatapp/core/utils/app_route.dart';
+import 'package:chatapp/Features/auth/presentation/views/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,19 +18,19 @@ class LoginBody extends StatelessWidget {
     var formKey = GlobalKey<FormState>();
     return BlocProvider(
       create: (context) => LoginCubit(),
-      child: BlocConsumer <LoginCubit, LoginState>(
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is SuccessLoginState||state is LoginSuccessGoogleSignInState) {
+          if (state is SuccessLoginState ||
+              state is LoginSuccessGoogleSignInState) {
             myToast(state: "Login Success", toastState: ToastState.success);
             AppFunctions.submit(context);
-          }
-          else if (state is ErrorLoginState) {
+          } else if (state is ErrorLoginState) {
             myToast(state: state.errorMsg, toastState: ToastState.error);
           }
         },
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: AppColors.appColor,
+            backgroundColor: AppColors.backgroundColor,
             body: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -141,6 +141,7 @@ class LoginBody extends StatelessWidget {
                               if (formKey.currentState!.validate()) {
                                 String num = '+20${phoneController.text}';
                                 print(num);
+
                                 ///TODO phone auth
                                 /*AppCubit.get(context)
                                   .loginUser(emailController, passController);*/
@@ -160,15 +161,15 @@ class LoginBody extends StatelessWidget {
                               }
                             },
                             child: state is LoadingLoginState
-                                ? const Center(
+                                ? Center(
                                     child: CircularProgressIndicator(
-                                      color: AppColors.appColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                   )
-                                : const Text(
+                                : Text(
                                     'Login',
                                     style: TextStyle(
-                                        color: AppColors.appColor,
+                                        color: AppColors.backgroundColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
                                   )),
@@ -185,7 +186,10 @@ class LoginBody extends StatelessWidget {
                         ),
                         child: MaterialButton(
                             onPressed: () {
-                              AppRouter.router.push(AppRouter.kRegisterView);
+                              AppFunctions.push(
+                                context: context,
+                                screen: const RegisterScreen(),
+                              );
                             },
                             child: const Text(
                               'Sign up',

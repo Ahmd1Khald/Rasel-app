@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Features/start/presentation/views/splash_screen.dart';
+import 'Features/start/presentation/views/widgets/splash_body.dart';
 import 'core/helpers/bloc_obsever.dart';
-import 'core/utils/app_route.dart';
 import 'firebase_options.dart';
 import 'core/helpers/cachehelper.dart';
 
@@ -30,11 +30,13 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Chat App',
-         //home: SplashScreen(),
-          routerConfig: AppRouter.router,
+         home: const SplashBody(),
+          theme: ThemeData(
+          ),
+          //routerConfig: AppRouter.router,
         );
       },
     );

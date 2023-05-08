@@ -18,7 +18,7 @@ class OtpScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.appColor,
+          backgroundColor: AppColors.backgroundColor,
           body: SingleChildScrollView(
             child: Form(
               key: formKey,
@@ -70,10 +70,10 @@ class OtpScreen extends StatelessWidget {
                                 navigateAndRemove(context: context,widget: const ChatScreen());
                               }
                             },
-                            child: const Text(
+                            child: Text(
                               'Login',
                               style: TextStyle(
-                                  color: AppColors.appColor,
+                                  color: AppColors.backgroundColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 22),
                             )),

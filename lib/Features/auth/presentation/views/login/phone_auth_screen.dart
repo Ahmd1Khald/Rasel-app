@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/utils/app_route.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/functions.dart';
 import '../../../../../core/widgets/components.dart';
@@ -28,7 +27,7 @@ class PhoneAuthScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: AppColors.appColor,
+            backgroundColor: AppColors.backgroundColor,
             body: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -89,7 +88,7 @@ class PhoneAuthScreen extends StatelessWidget {
                         ),
                         child: MaterialButton(
                             onPressed: () {
-                              AppRouter.router.push(AppRouter.kLoginView);
+
                             },
                             child: const Text(
                               'Send',

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class AppColors {
-  static const Color appColor = Color.fromARGB(255, 56, 115, 59);
+  static Color backgroundColor = HexColor('#35353D');
 
   static Color? messageColor = Colors.green[300];
 

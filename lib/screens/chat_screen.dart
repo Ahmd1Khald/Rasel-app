@@ -35,7 +35,7 @@ class ChatScreen extends StatelessWidget {
                 return Scaffold(
                   backgroundColor: HexColor('#dedede'),
                   appBar: AppBar(
-                    backgroundColor: AppColors.appColor,
+                    backgroundColor: AppColors.backgroundColor,
                     // centerTitle: true,
                     actions: [
                       Row(
@@ -107,7 +107,7 @@ class ChatScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFormField(
-                              cursorColor: AppColors.appColor,
+                              cursorColor: AppColors.backgroundColor,
                               cursorHeight: 30,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
@@ -122,17 +122,17 @@ class ChatScreen extends StatelessWidget {
                                                 key: 'photoURL'));
                                       }
                                     },
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.send,
-                                      color: AppColors.appColor,
+                                      color: AppColors.backgroundColor,
                                     )),
                                 hintText: 'Message',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.appColor)),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.appColor)),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.appColor)),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.backgroundColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.backgroundColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.backgroundColor)),
                               ),
 
                               controller: messageController,
@@ -153,7 +153,7 @@ class ChatScreen extends StatelessWidget {
               return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  backgroundColor: AppColors.appColor,
+                  backgroundColor: AppColors.backgroundColor,
                   centerTitle: true,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -175,16 +175,16 @@ class ChatScreen extends StatelessWidget {
                 ),
                 body: Column(
                   children: [
-                    const Center(
+                    Center(
                       child: CircularProgressIndicator(
-                        color: AppColors.appColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
-                        cursorColor: AppColors.appColor,
+                        cursorColor: AppColors.backgroundColor,
                         cursorHeight: 30,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
@@ -196,17 +196,17 @@ class ChatScreen extends StatelessWidget {
                                   scrollController: scrollController,
                                 );
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.send,
-                                color: AppColors.appColor,
+                                color: AppColors.backgroundColor,
                               )),
                           hintText: 'Message',
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.appColor)),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.appColor)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.appColor)),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.backgroundColor)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.backgroundColor)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.backgroundColor)),
                         ),
                         controller: messageController,
                         keyboardType: TextInputType.text,

@@ -1,13 +1,12 @@
-import 'package:chatapp/core/utils/app_route.dart';
+import 'package:chatapp/core/utils/constants/keys.dart';
+import 'package:chatapp/screens/chat_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-
-import '../../../screens/chat_screen.dart';
 import '../../helpers/cachehelper.dart';
-import '../../widgets/components.dart';
 
-class AppFunctions{
-
-  static String dateTimeFormatted (String s) {
+class AppFunctions {
+  static String dateTimeFormatted(String s) {
     var now = DateTime.now();
     var formatter = DateFormat('dd-MM-yyyy');
     String formattedTime = DateFormat('kk:mm:a').format(now);
@@ -23,7 +22,30 @@ class AppFunctions{
   }
 
   static void submit(context) {
-    CacheHelper.saveData(key: 'LoginDone', value: true);
-    AppRouter.router.pushReplacement(AppRouter.kLoadingView);
+    CacheHelper.saveData(key: AppKeys.loginDone, value: true);
+    Navigator.pushReplacement(
+        context, CupertinoPageRoute(
+        builder: (context) => const ChatScreen(),
+    ));
+  }
+
+  static void pushReplacement({
+    required context,
+    required Widget screen,
+  }) {
+    Navigator.pushReplacement(
+        context, CupertinoPageRoute(
+      builder: (context) => screen,
+    ));
+  }
+
+  static void push({
+    required context,
+    required Widget screen,
+  }) {
+    Navigator.push(
+        context, CupertinoPageRoute(
+      builder: (context) => screen,
+    ));
   }
 }

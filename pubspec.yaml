@@ -44,7 +44,7 @@ dependencies:
   flutter_bloc: ^8.1.1
 
   cached_network_image:
-# app route
+  # app route
   go_router:
 
   equatable:
