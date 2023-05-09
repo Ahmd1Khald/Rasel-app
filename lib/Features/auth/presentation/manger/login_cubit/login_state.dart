@@ -18,7 +18,10 @@ class LoginSuccessGoogleSignInState extends LoginState {
   LoginSuccessGoogleSignInState(this.uid);
 }
 
-class SuccessLoginState extends LoginState {}
+class SuccessLoginState extends LoginState {
+  final String uid;
+  SuccessLoginState(this.uid);
+}
 
 class ErrorLoginState extends LoginState {
   final String errorMsg;
@@ -27,7 +30,10 @@ class ErrorLoginState extends LoginState {
 
 class LoadingLoginState extends LoginState {}
 
-class LoginSuccessPhoneAuthState extends LoginState {}
+class LoginSuccessPhoneAuthState extends LoginState {
+  final String uid;
+  LoginSuccessPhoneAuthState(this.uid);
+}
 
 class LoginErrorPhoneAuthState extends LoginState {
   final String errorMsg;

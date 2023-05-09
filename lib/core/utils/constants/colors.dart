@@ -14,6 +14,7 @@ class AppColors {
   static Color orange = HexColor('#F2A84C');
   static Color midGreen = HexColor('#83BF6E');
   static Color green = HexColor('#73BC78');
+  static Color green2 = HexColor('#438A62');
   //TO 438A62
 
   static Color? messageColor = Colors.green[300];

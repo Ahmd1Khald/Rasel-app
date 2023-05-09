@@ -23,13 +23,12 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoadingLoginState());
 
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      var value = await _firebaseAuth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passController.text,
       );
       AppVariables.userEmail = emailController.text;
-      CacheHelper.saveData(key: 'userEmail', value: emailController.text);
-      emit(SuccessLoginState());
+      emit(SuccessLoginState(value.user!.uid));
     } on FirebaseAuthException catch (error) {
       print(error.toString());
       emit(ErrorLoginState(error.message!));
@@ -69,7 +68,11 @@ class LoginCubit extends Cubit<LoginState> {
     await _firebaseAuth.verifyPhoneNumber(
       phoneNumber: num,
       verificationCompleted: (PhoneAuthCredential credential) async {
-        await FirebaseAuth.instance.signInWithCredential(credential);
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        User user = userCredential.user!;
+
+        emit(LoginSuccessPhoneAuthState(user.uid));
       },
       verificationFailed: (FirebaseAuthException e) {
         emit(LoginErrorPhoneAuthState(e.message!));
@@ -77,7 +80,8 @@ class LoginCubit extends Cubit<LoginState> {
       },
       codeSent: (String verificationId, int? resendToken) {
         AppVariables.verification = verificationId;
-        emit(LoginSuccessPhoneAuthState());
+
+        ///todo code send
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         AppVariables.verification = verificationId;

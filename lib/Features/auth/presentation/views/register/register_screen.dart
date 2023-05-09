@@ -157,19 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    ReusableTextFormField(
-                      controller: passController,
-                      hintText: "Password",
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return "Enter a password";
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        // Save password value
-                      },
-                    ),
+                    ///todo passtextfield
                     const SizedBox(
                       height: 50,
                     ),
