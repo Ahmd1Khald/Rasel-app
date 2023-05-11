@@ -85,7 +85,7 @@ class MyDrawer extends StatelessWidget {
                           'Settings',
                         ),
                         onTap: () {
-                          navigateTo(context, const SettingScreen());
+                          //navigateTo(context, const SettingScreen());
                           /*Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Settings()));*/
                         },
@@ -179,7 +179,7 @@ class MyDrawer extends StatelessWidget {
                         'Settings',
                       ),
                       onTap: () {
-                        navigateTo(context, const SettingScreen());
+                        //navigateTo(context, const SettingScreen());
                         /*Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Settings()));*/
                       },

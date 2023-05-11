@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/helpers/cachehelper.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/functions.dart';
-import '../../../../../core/widgets/rusableTextFormField.dart';
 import '../../../../../core/widgets/components.dart';
 
 class RegisterScreen extends StatefulWidget {

@@ -67,7 +67,7 @@ class OtpScreen extends StatelessWidget {
                         child: MaterialButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()&&AppVariables.verification==codeController.text) {
-                                navigateAndRemove(context: context,widget: const ChatScreen());
+                                //navigateAndRemove(context: context,widget: const ChatScreen());
                               }
                             },
                             child: Text(

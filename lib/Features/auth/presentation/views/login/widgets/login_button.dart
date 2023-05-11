@@ -1,14 +1,16 @@
-import 'package:chatapp/bloc/state.dart';
 import 'package:chatapp/core/utils/constants/colors.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
 import 'package:chatapp/core/utils/constants/styles.dart';
 import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/utils/constants/variables.dart';
+
 class LoginButton extends StatelessWidget {
-  LoginButton({Key? key, formKey}) : super(key: key);
+  LoginButton({Key? key, formKey,}) : super(key: key);
 
   final formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,8 @@ class LoginButton extends StatelessWidget {
         ),
       ),
       child: MaterialButton(
-          onPressed: () {
-            if(formKey.currentState!.validate()){
+          onPressed: ()async {
 
-              ///todo push replacement
-              AppFunctions.push(context: context, screen: const ChatScreen());
-
-            }
           },
           child: Text(
             'Log in',

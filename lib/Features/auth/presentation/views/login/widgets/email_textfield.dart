@@ -4,10 +4,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../core/utils/constants/colors.dart';
 
-class EmailTextField extends StatelessWidget {
-  EmailTextField({Key? key, emailController}) : super(key: key);
+class EmailTextField extends StatefulWidget {
+  final TextEditingController emailController;
 
-  final emailController = TextEditingController();
+  const EmailTextField({
+    super.key,
+    required this.emailController,
+
+  });
+
+  @override
+  _EmailTextFieldState createState() => _EmailTextFieldState();
+}
+
+class _EmailTextFieldState extends State<EmailTextField> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +35,17 @@ class EmailTextField extends StatelessWidget {
         ),
         border: const OutlineInputBorder(
             borderSide: BorderSide(
-          color: AppColors.borderColor,
-        )),
+              color: AppColors.borderColor,
+            )),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.borderColor,
           ),
         ),
         focusedBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: AppColors.green)),
+        OutlineInputBorder(borderSide: BorderSide(color: AppColors.green)),
       ),
-      controller: emailController,
+      controller: widget.emailController,
       keyboardType: TextInputType.emailAddress,
       validator: (String? value) {
         if (value!.isEmpty) {

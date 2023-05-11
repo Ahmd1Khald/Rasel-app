@@ -18,6 +18,16 @@ class LoginSuccessGoogleSignInState extends LoginState {
   LoginSuccessGoogleSignInState(this.uid);
 }
 
+class LoginLoadingGoogleSignOutState extends LoginState {}
+
+class LoginErrorGoogleSignOutState extends LoginState {
+  final String errorMsg;
+  LoginErrorGoogleSignOutState(this.errorMsg);
+}
+
+class LoginSuccessGoogleSignOutState extends LoginState {}
+
+
 class SuccessLoginState extends LoginState {
   final String uid;
   SuccessLoginState(this.uid);

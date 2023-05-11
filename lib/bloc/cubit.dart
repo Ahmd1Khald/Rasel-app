@@ -92,7 +92,7 @@ class AppCubit extends Cubit<AppStates> {
 
     CacheHelper.removeData(key: 'chatPage').then((value) {
       emit(AppSuccessLogoutState());
-      navigateAndRemove(context: context, widget: const LoginScreen());
+      //navigateAndRemove(context: context, widget: const LoginScreen());
       CacheHelper.removeData(key: 'userName');
       CacheHelper.removeData(key: 'userEmail');
       CacheHelper.removeData(key: 'photoURL');

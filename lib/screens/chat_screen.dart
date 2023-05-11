@@ -1,15 +1,7 @@
-import 'package:chatapp/bloc/cubit.dart';
-import 'package:chatapp/bloc/state.dart';
-import 'package:chatapp/core/helpers/cachehelper.dart';
-import 'package:chatapp/core/utils/constants/variables.dart';
+import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hexcolor/hexcolor.dart';
-import '../core/utils/constants/colors.dart';
-import '../core/widgets/components.dart';
-import 'mydrawer.dart';
+import '../core/utils/constants/assets_images.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -19,8 +11,23 @@ class ChatScreen extends StatelessWidget {
     var messageController = TextEditingController();
     var scrollController = ScrollController();
     CollectionReference message =
-        FirebaseFirestore.instance.collection('Messages');
-    return BlocConsumer<AppCubit, AppStates>(
+    FirebaseFirestore.instance.collection('Messages');
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(AppAssetsImages.logoImage),
+          ElevatedButton(
+            onPressed: () async {
+
+            },
+            child: const Text("Log Out"),
+          ),
+        ],
+      ),
+    );
+    /*BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return StreamBuilder<QuerySnapshot>(
@@ -223,6 +230,6 @@ class ChatScreen extends StatelessWidget {
               );
             },
           );
-        });
+        });*/
   }
 }

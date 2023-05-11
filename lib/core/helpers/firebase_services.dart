@@ -26,13 +26,13 @@ class FirebaseServices {
     final UserCredential userCredential =
         await _firebaseAuth.signInWithCredential(authCredential);
 
-    final User? user = userCredential.user;
+    //final User? user = userCredential.user;
 
-    assert(user!.displayName != null);
-    assert(user!.email != null);
+    // assert(user!.displayName != null);
+    // assert(user!.email != null);
 
-    final User? currentUser = _firebaseAuth.currentUser;
-    assert(currentUser!.uid == user!.uid);
+    //final User? currentUser = _firebaseAuth.currentUser;
+    // assert(currentUser!.uid == user!.uid);
 
     return userCredential.user;
   }

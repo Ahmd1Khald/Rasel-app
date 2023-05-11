@@ -7,4 +7,5 @@ class AppVariables{
   static String userEmail = CacheHelper.getDate(key: 'userEmail');
 
   static var verification = '';
+
 }

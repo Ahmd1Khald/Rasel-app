@@ -30,17 +30,6 @@ Widget sharedTextField(
       ),
     );
 
-void navigateTo(context, widget) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => widget),
-    );
-
-void navigateAndRemove({context, widget}) => Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => widget),
-      (route) => false,
-    );
-
 void myToast({required var state, required ToastState toastState}) =>
     Fluttertoast.showToast(
         msg: '$state',
@@ -68,6 +57,14 @@ Color toastColor(ToastState state) {
 void showSnachBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 }
+
+Widget circleLoading({required Color color})=>Center(
+  child: CircularProgressIndicator(
+    color: color,
+  ),
+);
+
+
 
 Widget builtMyMessage(
         {required Color backgroundColor,

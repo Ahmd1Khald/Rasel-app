@@ -1,7 +1,9 @@
 import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
+import 'package:chatapp/Features/auth/presentation/views/login/widgets/login_title.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/password_textfield.dart';
-import 'package:chatapp/Features/auth/presentation/views/register/register_screen.dart';
+import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_signin_button.dart';
 import 'package:chatapp/core/helpers/cachehelper.dart';
+import 'package:chatapp/core/utils/constants/keys.dart';
 import 'package:chatapp/core/utils/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +11,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../../core/utils/constants/colors.dart';
 import '../../../../../../core/utils/constants/functions.dart';
+import '../../../../../../core/utils/constants/variables.dart';
 import '../../../../../../core/widgets/components.dart';
-import '../../../../../../core/widgets/rusableTextFormField.dart';
+import '../../../../../../screens/chat_screen.dart';
 import 'email_textfield.dart';
+import 'google_signin_button.dart';
 import 'last_text_auth.dart';
 import 'login photo.dart';
 import 'login_button.dart';
@@ -33,14 +37,14 @@ class LoginBody extends StatelessWidget {
           if (state is SuccessLoginState) {
             myToast(state: "Login Success", toastState: ToastState.success);
             AppFunctions.submit(context);
-            CacheHelper.saveData(key: 'userUid', value: state.uid);
-          }
-          else if (state is LoginSuccessGoogleSignInState) {
+            CacheHelper.saveData(key: AppKeys.userUid, value: state.uid);
+          } else if (state is LoginSuccessGoogleSignInState) {
             myToast(state: "Login Success", toastState: ToastState.success);
             AppFunctions.submit(context);
-            CacheHelper.saveData(key: 'userUid', value: state.uid);
-          }
-          else if (state is ErrorLoginState) {
+            CacheHelper.saveData(key: AppKeys.userUid, value: state.uid);
+          } else if (state is ErrorLoginState) {
+            myToast(state: state.errorMsg, toastState: ToastState.error);
+          } else if (state is LoginErrorGoogleSignInState) {
             myToast(state: state.errorMsg, toastState: ToastState.error);
           }
         },
@@ -56,13 +60,7 @@ class LoginBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const LoginPhoto(),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15.0.h, top: 5.0.h),
-                        child: Text(
-                          'Log in to get started!',
-                          style: AppStyles.title3,
-                        ),
-                      ),
+                      const LoginTitle(title: 'Log in to get started!'),
                       EmailTextField(
                         emailController: emailController,
                       ),
@@ -74,9 +72,40 @@ class LoginBody extends StatelessWidget {
                         height: 20.h,
                       ),
                       Center(
-                          child: LoginButton(
-                        formKey: formKey,
-                      )),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.lightGrey),
+                              color: AppColors.grey.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  AppColors.green,
+                                  AppColors.green2,
+                                  AppColors.midGreen,
+                                  //AppColors.lightGrey,
+                                ],
+                              ),
+                            ),
+                            child: MaterialButton(
+                                onPressed: ()async {
+                                  if (formKey.currentState!.validate()) {
+                                    LoginCubit.get(context).loginUser(
+                                      emailController,
+                                      passController,
+                                    );
+                                    print('email => ${emailController.text}');
+                                    print('pass => ${passController.text}');
+                                  }
+                                },
+                                child: Text(
+                                  'Log in',
+                                  style: AppStyles.title2,
+                                )),
+                          ),
+                      ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -88,64 +117,30 @@ class LoginBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: 65.h,
-                              width: 130.w,
-                              decoration: BoxDecoration(
-                                color: AppColors.grey.withOpacity(0.8),
-                                border: Border.all(color: AppColors.lightGrey),
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    AppColors.green,
-                                    AppColors.green2,
-                                    AppColors.midGreen,
-                                  ],
-                                ),
-                              ),
-                              child: Icon(
-                                FontAwesomeIcons.google,
-                                color: AppColors.lightGrey,
-                                size: 30.sp,
-                              ),
-                            ),
+                            onTap: () async {
+                              await LoginCubit.get(context).googleSignIn();
+                            },
+                            child: const GoogleSignInButton(),
                           ),
                           SizedBox(
                             width: 20.w,
                           ),
                           InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: 65.h,
-                              width: 130.w,
-                              decoration: BoxDecoration(
-                                color: AppColors.grey.withOpacity(0.8),
-                                border: Border.all(color: AppColors.lightGrey),
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    AppColors.green,
-                                    AppColors.green2,
-                                    AppColors.midGreen,
-                                  ],
-                                ),
-                              ),
-                              child: Icon(
-                                FontAwesomeIcons.mobile,
-                                color: AppColors.lightGrey,
-                                size: 30.sp,
-                              ),
-                            ),
+                            onTap: () {
+                              ///Todo navigate to otp screen
+                            },
+                            child: const PhoneSignInButton(),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 60.h,
+                        height: 25.h,
+                      ),
+                      if (state is LoginLoadingGoogleSignInState ||
+                          state is LoadingLoginState)
+                        circleLoading(color: AppColors.lightGrey),
+                      SizedBox(
+                        height: 15.h,
                       ),
                       const LastText(
                         firstText: 'Don\'t have an account?',

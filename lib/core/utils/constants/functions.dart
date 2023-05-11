@@ -23,10 +23,7 @@ class AppFunctions {
 
   static void submit(context) {
     CacheHelper.saveData(key: AppKeys.loginDone, value: true);
-    Navigator.pushReplacement(
-        context, CupertinoPageRoute(
-        builder: (context) => const ChatScreen(),
-    ));
+    AppFunctions.pushReplacement(context: context, screen: const ChatScreen());
   }
 
   static void pushReplacement({

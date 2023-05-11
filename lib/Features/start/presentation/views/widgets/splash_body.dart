@@ -26,19 +26,19 @@ class SplashBody extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                  AssetsImages.logoImage,
+                  AppAssetsImages.logoImage,
                 ),
                   fit: BoxFit.contain,
-
                 )
               ),
             );
           },
           duration: const Duration(milliseconds: 3620),
         ),
-        nextScreen: CacheHelper.getDate(key: AppKeys.loginDone) == true
+        nextScreen: CacheHelper.getDate(key: AppKeys.loginDone) == false
             ? const ChatScreen()
             : const LoginScreen(),
+        ///Todo change it to true
         splashIconSize: 100.sp,
         duration: 1800,
         //splashTransition: SplashTransition.slideTransition,
