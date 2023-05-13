@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../core/utils/constants/colors.dart';
-import '../../../../../../core/utils/constants/styles.dart';
+import '../../../../../../../core/utils/constants/colors.dart';
+import '../../../../../../../core/utils/constants/styles.dart';
 
 class OrLine extends StatelessWidget {
   const OrLine({Key? key}) : super(key: key);

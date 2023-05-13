@@ -1,11 +1,11 @@
-import '../../helpers/cachehelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class AppVariables{
-
+class AppVariables {
   static Uri appUrl = Uri.parse('https://github.com/Ahmd1Khald');
 
-  static String userEmail = CacheHelper.getDate(key: 'userEmail');
+  static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  static var verification = '';
+  static late final String phoneAuthId;
 
+  static late final String verifiedId;
 }

@@ -27,27 +27,14 @@ class LoginErrorGoogleSignOutState extends LoginState {
 
 class LoginSuccessGoogleSignOutState extends LoginState {}
 
-
-class SuccessLoginState extends LoginState {
+class LoginSuccessState extends LoginState {
   final String uid;
-  SuccessLoginState(this.uid);
+  LoginSuccessState(this.uid);
 }
 
-class ErrorLoginState extends LoginState {
+class LoginErrorState extends LoginState {
   final String errorMsg;
-  ErrorLoginState(this.errorMsg);
+  LoginErrorState(this.errorMsg);
 }
 
-class LoadingLoginState extends LoginState {}
-
-class LoginSuccessPhoneAuthState extends LoginState {
-  final String uid;
-  LoginSuccessPhoneAuthState(this.uid);
-}
-
-class LoginErrorPhoneAuthState extends LoginState {
-  final String errorMsg;
-  LoginErrorPhoneAuthState(this.errorMsg);
-}
-
-class LoginLoadingPhoneAuthState extends LoginState {}
+class LoginLoadingState extends LoginState {}

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../../core/utils/constants/colors.dart';
+import '../../../../../../../core/utils/constants/colors.dart';
 
-class PhoneSignInButton extends StatelessWidget {
-  const PhoneSignInButton({Key? key}) : super(key: key);
+class GoogleSignInButton extends StatelessWidget {
+  const GoogleSignInButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class PhoneSignInButton extends StatelessWidget {
         ),
       ),
       child: Icon(
-        FontAwesomeIcons.phone,
+        FontAwesomeIcons.google,
         color: AppColors.lightGrey,
         size: 30.sp,
       ),

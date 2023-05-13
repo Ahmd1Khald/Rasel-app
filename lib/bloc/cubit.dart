@@ -1,8 +1,8 @@
+import 'dart:io';
+
 import 'package:chatapp/bloc/state.dart';
 import 'package:chatapp/core/utils/constants/fonts_sizes.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
-import 'package:chatapp/core/utils/constants/variables.dart';
-import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+
 import '../core/helpers/cachehelper.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       user = FirebaseFirestore.instance.collection('Users');
       CacheHelper.saveData(key: 'userEmail', value: emailController.text);
-      AppVariables.userEmail = emailController.text;
+      //AppVariables.userEmail = emailController.text;
 
       user
           .add(({
@@ -119,7 +119,8 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetFontSizeState());
     try {
       final prefs = await SharedPreferences.getInstance();
-      AppFontsSize.messageFontSize = prefs.getInt('messageFontSize')!.toDouble();
+      AppFontsSize.messageFontSize =
+          prefs.getInt('messageFontSize')!.toDouble();
       emit(AppSuccessGetFontSizeState());
     } catch (_) {
       AppFontsSize.messageFontSize = 15;
@@ -132,7 +133,7 @@ class AppCubit extends Cubit<AppStates> {
   int numImage = 0;
 
   Future setImage() async {
-    image=null;
+    image = null;
     var pickerImage = await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickerImage != null) {
       emit(AppLoadingUploadPhotoState());
@@ -149,7 +150,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future uploadImage() async {
-
     String path = 'Images/$numImage/chat-app-8a643.appspot.com/';
     final ref = FirebaseStorage.instance.ref().child(path);
     UploadTask? uploadTask;

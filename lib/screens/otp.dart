@@ -1,20 +1,17 @@
-import 'package:chatapp/screens/chat_screen.dart';
-import 'package:chatapp/core/widgets/components.dart';
+import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/cubit.dart';
-import '../bloc/state.dart';
-import '../core/utils/constants/colors.dart';
-import '../core/utils/constants/variables.dart';
 
-class OtpScreen extends StatelessWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+import '../core/utils/constants/colors.dart';
+
+class Otpreen extends StatelessWidget {
+  const Otpreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var codeController = TextEditingController();
     var formKey = GlobalKey<FormState>();
-    return BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
@@ -39,16 +36,18 @@ class OtpScreen extends StatelessWidget {
                       decoration: const InputDecoration(
                         hintStyle: TextStyle(color: AppColors.borderColor),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.borderColor)),
+                            borderSide:
+                                BorderSide(color: AppColors.borderColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.borderColor)),
+                            borderSide:
+                                BorderSide(color: AppColors.borderColor)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.green)),
                       ),
                       controller: codeController,
                       keyboardType: TextInputType.phone,
                       validator: (String? value) {
-                        if (value!.isEmpty||value.length>6) {
+                        if (value!.isEmpty || value.length > 6) {
                           return 'Invalid code number';
                         }
                         return null;
@@ -66,9 +65,9 @@ class OtpScreen extends StatelessWidget {
                             border: Border.all(color: Colors.white)),
                         child: MaterialButton(
                             onPressed: () async {
-                              if (formKey.currentState!.validate()&&AppVariables.verification==codeController.text) {
+                              /*if (formKey.currentState!.validate()&&AppVariables.verification==codeController.text) {
                                 //navigateAndRemove(context: context,widget: const ChatScreen());
-                              }
+                              }*/
                             },
                             child: Text(
                               'Login',

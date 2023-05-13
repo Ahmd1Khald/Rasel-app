@@ -1,105 +1,179 @@
+import 'package:chatapp/Features/auth/presentation/manger/phone_cubit/phone_cubit.dart';
+import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_button.dart';
+import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_code_screen.dart';
+import 'package:chatapp/core/widgets/components.dart';
+import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../../core/utils/constants/assets_images.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/functions.dart';
-import '../../../../../core/widgets/components.dart';
-import '../../manger/login_cubit/login_cubit.dart';
+import '../../../../../core/utils/constants/styles.dart';
 
 class PhoneAuthScreen extends StatelessWidget {
-  const PhoneAuthScreen({Key? key}) : super(key: key);
+  const PhoneAuthScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var phoneController = TextEditingController();
     var formKey = GlobalKey<FormState>();
     return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginState>(
+      create: (context) => PhoneCubit(),
+      child: BlocConsumer<PhoneCubit, PhoneState>(
         listener: (context, state) {
-          if (state is SuccessLoginState ||
-              state is LoginSuccessGoogleSignInState) {
-            myToast(state: "Login Success", toastState: ToastState.success);
-            AppFunctions.submit(context);
-          } else if (state is ErrorLoginState) {
+          //Success
+          if (state is PhoneSuccessSendOtpState) {
+            myToast(state: 'Send Success', toastState: ToastState.success);
+            AppFunctions.push(
+              context: context,
+              screen: OtpScreen(
+                userPhoneNumber: phoneController.text,
+                cubit: PhoneCubit.get(context),
+              ),
+            );
+          } else if (state is PhoneSuccessConfirmOtpState) {
+            myToast(state: 'Confirmed!', toastState: ToastState.error);
+            AppFunctions.push(
+              context: context,
+              screen: const ChatScreen(),
+            );
+          }
+          //Error
+          else if (state is PhoneErrorSendOtpState) {
             myToast(state: state.errorMsg, toastState: ToastState.error);
+            Navigator.pop(context);
+          } else if (state is PhoneErrorConfirmOtpState) {
+            myToast(state: state.errorMsg, toastState: ToastState.error);
+            Navigator.pop(context);
+          }
+          //Loading
+          else if (state is PhoneLoadingSendOtpState) {
+            //AppFunctions.loadingPage(context: context);
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => Center(
+                child: circleLoading(color: AppColors.lightGrey),
+              ),
+            );
+          } else if (state is PhoneLoadingConfirmOtpState) {
+            AppFunctions.loadingPage(context: context);
           }
         },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backgroundColor,
-            body: SingleChildScrollView(
-              child: Form(
-                key: formKey,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0.sp),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      Image.asset(
-                        'assets/images/login.png',
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.60,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        opacity: 0.3,
+                        image: AssetImage(AppAssetsImages.phoneImage),
                         fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.height * 0.3,
                       ),
-                      TextFormField(
-                        cursorColor: AppColors.cursorColor,
-                        decoration: InputDecoration(
-                          hintText: 'Phone Number',
-                          hintStyle:
-                              const TextStyle(color: AppColors.borderColor),
-                          prefixIcon: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                '+20',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(20.sp),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 80.h,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6.sp),
+                                      color: AppColors.midGrey.withOpacity(0.2),
+                                      border: Border.all(
+                                          color: AppColors.lightGrey),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '${AppFunctions.generateCountryFlag()} +20',
+                                        style: AppStyles.title3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: TextFormField(
+                                    autofocus: true,
+                                    cursorColor: AppColors.lightGrey,
+                                    style: AppStyles.title3.copyWith(
+                                      color: AppColors.lightGrey,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(6.sp),
+                                        borderSide: BorderSide(
+                                            color: AppColors.lightGrey),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: AppColors.lightGrey),
+                                      ),
+                                      prefixIcon: Icon(
+                                        FontAwesomeIcons.phone,
+                                        color: AppColors.midGreen,
+                                      ),
+                                      hintText: 'Phone number',
+                                      hintStyle: AppStyles.title3
+                                          .copyWith(letterSpacing: 2.0),
+                                      // enabled: true,
+                                    ),
+                                    controller: phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter your phone number';
+                                      } else if (value.length < 11) {
+                                        return 'Too short phone number';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: OtpButton(
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    PhoneCubit.get(context).sendOtp(
+                                        phoneNumber: phoneController.text);
+                                  }
+                                },
+                                title: 'Send',
                               ),
-                            ],
-                          ),
-                          border: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.borderColor)),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.borderColor)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green)),
+                            ),
+                          ],
                         ),
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        validator: (String? value) {
-                          if (value!.length < 11) {
-                            return 'Invalid phone number';
-                          }
-                          return null;
-                        },
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          color: Colors.grey.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: MaterialButton(
-                            onPressed: () {
-
-                            },
-                            child: const Text(
-                              'Send',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                              ),
-                            )),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),

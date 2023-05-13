@@ -1,9 +1,12 @@
 import 'package:chatapp/core/utils/constants/keys.dart';
 import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '../../helpers/cachehelper.dart';
+import '../../widgets/components.dart';
+import 'colors.dart';
 
 class AppFunctions {
   static String dateTimeFormatted(String s) {
@@ -31,9 +34,10 @@ class AppFunctions {
     required Widget screen,
   }) {
     Navigator.pushReplacement(
-        context, CupertinoPageRoute(
-      builder: (context) => screen,
-    ));
+        context,
+        CupertinoPageRoute(
+          builder: (context) => screen,
+        ));
   }
 
   static void push({
@@ -41,8 +45,24 @@ class AppFunctions {
     required Widget screen,
   }) {
     Navigator.push(
-        context, CupertinoPageRoute(
-      builder: (context) => screen,
-    ));
+        context,
+        CupertinoPageRoute(
+          builder: (context) => screen,
+        ));
   }
+
+  static String generateCountryFlag() {
+    String countryCode = 'eg';
+    String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
+        (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
+    return flag;
+  }
+
+  static loadingPage({required context}) => showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => Center(
+          child: circleLoading(color: AppColors.lightGrey),
+        ),
+      );
 }

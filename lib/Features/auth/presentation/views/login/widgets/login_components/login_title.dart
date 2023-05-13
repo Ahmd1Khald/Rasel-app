@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../core/utils/constants/styles.dart';
+import '../../../../../../../core/utils/constants/styles.dart';
 
 class LoginTitle extends StatelessWidget {
   const LoginTitle({Key? key, required this.title}) : super(key: key);

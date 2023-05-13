@@ -1,15 +1,12 @@
 import 'package:chatapp/core/utils/constants/colors.dart';
-import 'package:chatapp/core/utils/constants/functions.dart';
 import 'package:chatapp/core/utils/constants/styles.dart';
-import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/utils/constants/variables.dart';
-
 class LoginButton extends StatelessWidget {
-  LoginButton({Key? key, formKey,}) : super(key: key);
+  LoginButton({Key? key, formKey, required this.onPressed,}) : super(key: key);
 
   final formKey = GlobalKey<FormState>();
+  final VoidCallback onPressed;
 
 
   @override
@@ -32,9 +29,7 @@ class LoginButton extends StatelessWidget {
         ),
       ),
       child: MaterialButton(
-          onPressed: ()async {
-
-          },
+          onPressed: onPressed,
           child: Text(
             'Log in',
             style: AppStyles.title2,

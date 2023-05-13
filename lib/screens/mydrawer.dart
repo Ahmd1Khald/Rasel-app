@@ -1,12 +1,11 @@
 import 'package:chatapp/core/helpers/cachehelper.dart';
-import 'package:chatapp/screens/settings.dart';
-import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../bloc/cubit.dart';
 import '../bloc/state.dart';
 import '../core/utils/constants/colors.dart';
@@ -158,7 +157,7 @@ class MyDrawer extends StatelessWidget {
                             height: 20,
                           ),
                           Text(
-                            AppVariables.userEmail.isNotEmpty ? AppVariables.userEmail : "No Email yet..",
+                            "No Email yet..",
                             maxLines: 1,
                             style: GoogleFonts.aclonica(
                               fontSize: 13,

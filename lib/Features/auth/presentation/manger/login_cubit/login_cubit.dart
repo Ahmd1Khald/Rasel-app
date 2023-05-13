@@ -1,16 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
 import 'package:chatapp/core/utils/constants/keys.dart';
-import 'package:chatapp/core/widgets/components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../../../../core/helpers/cachehelper.dart';
-import '../../../../../core/helpers/firebase_services.dart';
 import '../../../../../core/utils/constants/variables.dart';
 
 part 'login_state.dart';
@@ -20,45 +17,41 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   Future<void> loginUser(
     TextEditingController emailController,
     TextEditingController passController,
   ) async {
-    emit(LoadingLoginState());
+    emit(LoginLoadingState());
 
     try {
-      var value = await _firebaseAuth.signInWithEmailAndPassword(
+      var value = await AppVariables.firebaseAuth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passController.text,
       );
-      AppVariables.userEmail = emailController.text;
-      emit(SuccessLoginState(value.user!.uid));
-    }catch (error) {
+      emit(LoginSuccessState(value.user!.uid));
+    } catch (error) {
       if (error is FirebaseAuthException) {
         if (error.code == 'user-not-found') {
           // Handle user not found error
           print('User not found');
-          emit(ErrorLoginState('User not found'));
+          emit(LoginErrorState('User not found'));
         } else if (error.code == 'wrong-password') {
           // Handle wrong password error
           print('Wrong password');
-          emit(ErrorLoginState('Wrong password'));
+          emit(LoginErrorState('Wrong password'));
         } else {
           // Handle other FirebaseAuthException errors
           print('FirebaseAuthException: ${error.code}');
-          if(error.code == 'network-request-failed')
-            {
-              emit(ErrorLoginState('Check your Signal!'));
-            }else{
-            emit(ErrorLoginState(error.message!));
+          if (error.code == 'network-request-failed') {
+            emit(LoginErrorState('Check your Signal!'));
+          } else {
+            emit(LoginErrorState(error.message!));
           }
         }
       } else {
         // Handle generic errors
         print('Error: $error');
-        emit(ErrorLoginState(error.toString()));
+        emit(LoginErrorState(error.toString()));
       }
     }
   }
@@ -96,7 +89,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (account != null) {
         // Retrieve the authentication token
         final GoogleSignInAuthentication authentication =
-        await account.authentication;
+            await account.authentication;
 
         // Use the token to sign in to your Firebase backend
         // For example:
@@ -105,8 +98,8 @@ class LoginCubit extends Cubit<LoginState> {
           idToken: authentication.idToken,
         );
         await FirebaseAuth.instance.signInWithCredential(authCredential);
-        final UserCredential userCredential =
-        await _firebaseAuth.signInWithCredential(authCredential);
+        final UserCredential userCredential = await AppVariables.firebaseAuth
+            .signInWithCredential(authCredential);
         emit(LoginSuccessGoogleSignInState(userCredential.user!.uid));
 
         // If sign-in is successful, proceed with the rest of your logic
@@ -116,9 +109,6 @@ class LoginCubit extends Cubit<LoginState> {
         print('Google Sign-In canceled by user');
         emit(LoginErrorGoogleSignInState('Google Sign-In canceled'));
       }
-
-
-
     } on PlatformException catch (error) {
       if (error.code == 'sign_in_failed') {
         // Handle specific sign-in failure
@@ -151,39 +141,15 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> googleSignOut(context) async {
     emit(LoginLoadingGoogleSignOutState());
     await gSignIn.signOut().then((value) {
-      AppFunctions.pushReplacement(context: context, screen: const LoginScreen());
+      AppFunctions.pushReplacement(
+          context: context, screen: const LoginScreen());
 
       print("user uid is => $AppKeys.userUid");
       CacheHelper.removeData(key: AppKeys.userUid);
       CacheHelper.removeData(key: AppKeys.loginDone);
       emit(LoginSuccessGoogleSignOutState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(LoginErrorGoogleSignOutState(error.toString()));
     });
-  }
-
-  void phoneAuth({required String num}) async {
-    await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: num,
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        User user = userCredential.user!;
-
-        emit(LoginSuccessPhoneAuthState(user.uid));
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        emit(LoginErrorPhoneAuthState(e.message!));
-        print('Error phone auth${e.message}');
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        AppVariables.verification = verificationId;
-
-        ///todo code send
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        AppVariables.verification = verificationId;
-      },
-    );
   }
 }

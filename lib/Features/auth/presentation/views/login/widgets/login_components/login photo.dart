@@ -1,3 +1,4 @@
+import 'package:chatapp/core/utils/constants/assets_images.dart';
 import 'package:flutter/material.dart';
 
 class LoginPhoto extends StatelessWidget {
@@ -7,7 +8,7 @@ class LoginPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Image.asset(
-        'assets/images/login.png',
+        AppAssetsImages.loginImage,
         fit: BoxFit.cover,
         height: MediaQuery.of(context).size.height * 0.3,
       ),

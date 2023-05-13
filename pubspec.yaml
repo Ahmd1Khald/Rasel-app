@@ -61,6 +61,7 @@ dependencies:
   hexcolor: ^3.0.1
   image_picker: ^0.8.6+1
   font_awesome_flutter:
+  percent_indicator:
 
 # Firebase
   firebase_core: ^2.4.1
