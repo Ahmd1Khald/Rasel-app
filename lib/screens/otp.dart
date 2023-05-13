@@ -34,13 +34,14 @@ class Otpreen extends StatelessWidget {
                     TextFormField(
                       cursorColor: Colors.white,
                       decoration: const InputDecoration(
-                        hintStyle: TextStyle(color: AppColors.borderColor),
+                        hintStyle:
+                            TextStyle(color: AppColors.inActiveBorderColor),
                         border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.borderColor)),
+                            borderSide: BorderSide(
+                                color: AppColors.inActiveBorderColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.borderColor)),
+                            borderSide: BorderSide(
+                                color: AppColors.inActiveBorderColor)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.green)),
                       ),

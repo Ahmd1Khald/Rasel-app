@@ -98,7 +98,8 @@ class PhoneAuthScreen extends StatelessWidget {
                                     height: 40.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6.sp),
-                                      color: AppColors.midGrey.withOpacity(0.2),
+                                      color:
+                                          AppColors.midGrey!.withOpacity(0.2),
                                       border: Border.all(
                                           color: AppColors.lightGrey),
                                     ),

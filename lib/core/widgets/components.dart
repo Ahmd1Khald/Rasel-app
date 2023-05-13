@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../helpers/cachehelper.dart';
 import '../utils/constants/fonts_sizes.dart';
 
@@ -58,13 +59,11 @@ void showSnachBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 }
 
-Widget circleLoading({required Color color})=>Center(
-  child: CircularProgressIndicator(
-    color: color,
-  ),
-);
-
-
+Widget circleLoading({required Color color}) => Center(
+      child: CircularProgressIndicator(
+        color: color,
+      ),
+    );
 
 Widget builtMyMessage(
         {required Color backgroundColor,
@@ -93,7 +92,7 @@ Widget builtMyMessage(
                 child: Text(
                   msg,
                   style: GoogleFonts.aBeeZee(
-                    fontSize: AppFontsSize.messageFontSize.toDouble()  ,
+                    fontSize: AppFontsSize.messageFontSize.toDouble(),
                   ),
                 ),
               ),

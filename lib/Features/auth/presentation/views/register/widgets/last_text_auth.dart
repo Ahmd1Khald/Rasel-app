@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/utils/constants/colors.dart';
 import '../../../../../../../core/utils/constants/functions.dart';
 import '../../../../../../../core/utils/constants/styles.dart';
-import '../../../register/register_screen.dart';
+import '../register_screen.dart';
 
 class LastText extends StatelessWidget {
   const LastText({
