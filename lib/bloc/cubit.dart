@@ -36,7 +36,6 @@ class AppCubit extends Cubit<AppStates> {
       user = FirebaseFirestore.instance.collection('Users');
       CacheHelper.saveData(key: 'userEmail', value: emailController.text);
       //AppVariables.userEmail = emailController.text;
-
       user
           .add(({
         'name': nameController.text,

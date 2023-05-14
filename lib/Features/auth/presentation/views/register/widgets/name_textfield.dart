@@ -5,11 +5,11 @@ import '../../../../../../core/utils/constants/colors.dart';
 import '../../../../../../core/utils/constants/styles.dart';
 
 class NameTextField extends StatelessWidget {
-  NameTextField({
+  const NameTextField({
     Key? key,
-    nameController,
+    required this.nameController,
   }) : super(key: key);
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController;
 
   @override
   Widget build(BuildContext context) {

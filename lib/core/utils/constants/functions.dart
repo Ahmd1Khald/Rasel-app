@@ -24,8 +24,9 @@ class AppFunctions {
     }
   }
 
-  static void submit(context) {
+  static void submit({required context, required String userUid}) {
     CacheHelper.saveData(key: AppKeys.loginDone, value: true);
+    CacheHelper.saveData(key: AppKeys.userUid, value: userUid);
     AppFunctions.pushReplacement(context: context, screen: const ChatScreen());
   }
 

@@ -1,6 +1,7 @@
 import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
 import 'package:chatapp/core/utils/constants/keys.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  Future<void> loginUser(
+  late CollectionReference user;
+
+  Future<void> userLogin(
     TextEditingController emailController,
     TextEditingController passController,
   ) async {
@@ -28,6 +31,9 @@ class LoginCubit extends Cubit<LoginState> {
         email: emailController.text,
         password: passController.text,
       );
+
+      fetchUserData();
+
       emit(LoginSuccessState(value.user!.uid));
     } catch (error) {
       if (error is FirebaseAuthException) {
@@ -136,6 +142,34 @@ class LoginCubit extends Cubit<LoginState> {
     //   emit(LoginErrorGoogleSignInState(error.message.toString()));
     //   print(error.message.toString());
     // }
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('userId', isEqualTo: user)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+          // Access the user data
+          Object? userData = documentSnapshot.data();
+          print('++++++++++++++++++++++++');
+          //print(userData['']);
+          print('++++++++++++++++++++++++');
+
+          // Use the retrieved user data as needed
+          // ...
+        }
+      } else {
+        // Handle case when no user data is found
+        print('No user data found');
+      }
+    } catch (e) {
+      // Handle any errors that occur during the retrieval
+      print('Error retrieving user data: $e');
+    }
   }
 
   Future<void> googleSignOut(context) async {

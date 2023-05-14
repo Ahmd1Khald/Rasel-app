@@ -1,7 +1,5 @@
 import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/login_components/password_textfield.dart';
-import 'package:chatapp/core/helpers/cachehelper.dart';
-import 'package:chatapp/core/utils/constants/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,12 +32,10 @@ class LoginBody extends StatelessWidget {
           //Success
           if (state is LoginSuccessState) {
             myToast(state: "Login Success", toastState: ToastState.success);
-            AppFunctions.submit(context);
-            CacheHelper.saveData(key: AppKeys.userUid, value: state.uid);
+            AppFunctions.submit(context: context, userUid: state.uid);
           } else if (state is LoginSuccessGoogleSignInState) {
             myToast(state: "Login Success", toastState: ToastState.success);
-            AppFunctions.submit(context);
-            CacheHelper.saveData(key: AppKeys.userUid, value: state.uid);
+            AppFunctions.submit(context: context, userUid: state.uid);
           }
           //Error
           else if (state is LoginErrorState) {
@@ -83,7 +79,7 @@ class LoginBody extends StatelessWidget {
                         child: LoginButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              LoginCubit.get(context).loginUser(
+                              LoginCubit.get(context).userLogin(
                                 emailController,
                                 passController,
                               );

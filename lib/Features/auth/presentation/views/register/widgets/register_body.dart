@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../bloc/state.dart';
 import '../../../../../../core/utils/constants/colors.dart';
 import '../../../../../../core/utils/constants/functions.dart';
 import '../../../../../../core/widgets/components.dart';
@@ -30,20 +29,35 @@ class RegisterBody extends StatelessWidget {
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state is AppSuccessRegisterState) {
-            myToast(state: "Register Success", toastState: ToastState.success);
-            AppFunctions.submit(context);
-          } else if (state is AppErrorRegisterState) {
-            myToast(state: "Register Failed", toastState: ToastState.error);
+          //Success
+          if (state is RegisterSuccessUploadPhotoState) {
+            myToast(state: "Success!", toastState: ToastState.success);
+            Navigator.pop(context);
+          } else if (state is RegisterSuccessState) {
+            myToast(state: "Register success!", toastState: ToastState.success);
+            AppFunctions.submit(context: context, userUid: state.uid);
+          }
+          //Error
+          else if (state is RegisterErrorUploadPhotoState) {
+            myToast(state: state.errorMsg, toastState: ToastState.error);
+            Navigator.pop(context);
+          } else if (state is RegisterErrorSetPhotoState) {
+            myToast(state: state.errorMsg, toastState: ToastState.error);
+            Navigator.pop(context);
+          } else if (state is RegisterErrorState) {
+            myToast(state: state.errorMsg, toastState: ToastState.error);
+            Navigator.pop(context);
+          }
+          //Loading
+          else if (state is RegisterLoadingUploadPhotoState) {
+            AppFunctions.loadingPage(context: context);
+          } else if (state is RegisterLoadingState) {
+            AppFunctions.loadingPage(context: context);
           }
         },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.backgroundColor,
-            /*appBar: AppBar(
-            backgroundColor: AppColors.appColor,
-            elevation: 0,
-          ),*/
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Form(
@@ -54,7 +68,12 @@ class RegisterBody extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const PutUserImage(),
+                        PutUserImage(
+                          image: RegisterCubit.get(context).userImage,
+                          onPressed: () {
+                            RegisterCubit.get(context).setImage();
+                          },
+                        ),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -92,12 +111,21 @@ class RegisterBody extends StatelessWidget {
                                 print('phone => ${phoneController.text}');
                                 print('email => ${emailController.text}');
                                 print('pass => ${passController.text}');
+
+                                RegisterCubit.get(context).userRegister(
+                                  emailController: emailController,
+                                  passController: passController,
+                                  nameController: nameController,
+                                  phoneController: phoneController,
+                                  image: RegisterCubit.get(context).userImage ??
+                                      'null',
+                                );
                               }
                             },
                           ),
                         ),
                         SizedBox(
-                          height: 40.h,
+                          height: 50.h,
                         ),
                         const LastText(
                           firstText: 'Do have an account?',

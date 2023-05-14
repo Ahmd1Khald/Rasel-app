@@ -71,6 +71,7 @@ dependencies:
   firebase_storage: ^11.0.11
   google_sign_in:
   flutter_login_facebook:
+  firebase_database:
 
 
 
