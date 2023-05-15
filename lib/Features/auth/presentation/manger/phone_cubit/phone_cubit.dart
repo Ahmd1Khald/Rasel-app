@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../core/utils/constants/functions.dart';
 import '../../../../../core/utils/constants/variables.dart';
 
 part 'phone_state.dart';
@@ -54,6 +56,8 @@ class PhoneCubit extends Cubit<PhoneState> {
     );
   }
 
+  late var user;
+
   void confirmOtp({required String otpCode}) async {
     emit(PhoneLoadingConfirmOtpState());
 
@@ -65,8 +69,22 @@ class PhoneCubit extends Cubit<PhoneState> {
 
       final UserCredential userCredential =
           await AppVariables.firebaseAuth.signInWithCredential(credential);
-      final User user = userCredential.user!;
-      emit(PhoneSuccessConfirmOtpState(user.uid));
+
+      user = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.uid);
+
+      user.set(({
+        'name': userCredential.user!.displayName ?? '',
+        'email': userCredential.user!.email ?? '',
+        'phone': userCredential.user!.phoneNumber,
+        'image': userCredential.user!.photoURL ?? '',
+        'createdAt': AppFunctions.dateTimeFormatted('y'),
+      }));
+
+      emit(PhoneSuccessConfirmOtpState(userCredential.user!.uid));
+
+      fetchUserData(userCredential.user!.uid);
 
       // OTP verification successful, do something with the authenticated user
       // For example, you can navigate to a new screen or update the UI accordingly
@@ -74,6 +92,26 @@ class PhoneCubit extends Cubit<PhoneState> {
       // OTP verification failed, handle the error
       emit(PhoneErrorConfirmOtpState(error.toString()));
       print('error while confirm otp => $error');
+    }
+  }
+
+  Future<void> fetchUserData(String uid) async {
+    try {
+      print('+++++++++++++++++++++++');
+      print(uid);
+      print('+++++++++++++++++++++++');
+      //01101683770
+
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .snapshots()
+          .listen((event) {
+        print(event.data());
+      });
+    } catch (e) {
+      // Handle any errors that occur during the retrieval
+      print('Error retrieving user data: $e');
     }
   }
 }

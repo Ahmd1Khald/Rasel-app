@@ -18,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  late CollectionReference user;
+  late var user;
 
   Future<void> userLogin(
     TextEditingController emailController,
@@ -83,10 +83,6 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> googleSignIn() async {
     emit(LoginLoadingGoogleSignInState());
     try {
-      // await firebaseServices.googleSignIn().then((value) {
-      //   emit(LoginSuccessGoogleSignInState(value!.uid));
-      //   print("------------------${value.uid}");
-      // });
       // Create a new instance of GoogleSignIn
 
       // Start the Google Sign-In process
@@ -106,7 +102,22 @@ class LoginCubit extends Cubit<LoginState> {
         await FirebaseAuth.instance.signInWithCredential(authCredential);
         final UserCredential userCredential = await AppVariables.firebaseAuth
             .signInWithCredential(authCredential);
+
+        user = FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userCredential.user!.uid);
+
+        user.set(({
+          'name': userCredential.user!.displayName,
+          'email': userCredential.user!.email,
+          'phone': userCredential.user!.phoneNumber,
+          'image': userCredential.user!.photoURL,
+          'createdAt': AppFunctions.dateTimeFormatted('y'),
+        }));
+
         emit(LoginSuccessGoogleSignInState(userCredential.user!.uid));
+
+        fetchUserData(userCredential.user!.uid);
 
         // If sign-in is successful, proceed with the rest of your logic
         // ...

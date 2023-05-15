@@ -37,7 +37,7 @@ class PhoneAuthScreen extends StatelessWidget {
               ),
             );
           } else if (state is PhoneSuccessConfirmOtpState) {
-            myToast(state: 'Confirmed!', toastState: ToastState.error);
+            myToast(state: 'Confirmed!', toastState: ToastState.success);
             AppFunctions.push(
               context: context,
               screen: const ChatScreen(),
