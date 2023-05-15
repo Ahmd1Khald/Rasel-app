@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
         password: passController.text,
       );
 
-      fetchUserData();
+      fetchUserData(value.user!.uid);
 
       emit(LoginSuccessState(value.user!.uid));
     } catch (error) {
@@ -144,28 +144,20 @@ class LoginCubit extends Cubit<LoginState> {
     // }
   }
 
-  Future<void> fetchUserData() async {
+  Future<void> fetchUserData(String uid) async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      print('+++++++++++++++++++++++');
+      print(uid);
+      print('+++++++++++++++++++++++');
+      //01101683770
+
+      FirebaseFirestore.instance
           .collection('Users')
-          .where('userId', isEqualTo: user)
-          .get();
-
-      if (querySnapshot.docs.isNotEmpty) {
-        for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-          // Access the user data
-          Object? userData = documentSnapshot.data();
-          print('++++++++++++++++++++++++');
-          //print(userData['']);
-          print('++++++++++++++++++++++++');
-
-          // Use the retrieved user data as needed
-          // ...
-        }
-      } else {
-        // Handle case when no user data is found
-        print('No user data found');
-      }
+          .doc(uid)
+          .snapshots()
+          .listen((event) {
+        print(event.data());
+      });
     } catch (e) {
       // Handle any errors that occur during the retrieval
       print('Error retrieving user data: $e');

@@ -78,7 +78,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  late CollectionReference user;
+  late var user;
 
   Future<void> userRegister({
     required TextEditingController emailController,
@@ -94,9 +94,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: passController.text,
       );
 
-      user = FirebaseFirestore.instance.collection('Users');
+      user =
+          FirebaseFirestore.instance.collection('Users').doc(value.user!.uid);
 
-      user.add(({
+      user.set(({
         'name': nameController.text,
         'email': emailController.text,
         'phone': phoneController.text,
