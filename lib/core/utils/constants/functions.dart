@@ -1,5 +1,5 @@
+import 'package:chatapp/Features/chat/presentation/views/chat_screen.dart';
 import 'package:chatapp/core/utils/constants/keys.dart';
-import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +27,11 @@ class AppFunctions {
   static void submit({required context, required String userUid}) {
     CacheHelper.saveData(key: AppKeys.loginDone, value: true);
     CacheHelper.saveData(key: AppKeys.userUid, value: userUid);
-    AppFunctions.pushReplacement(context: context, screen: const ChatScreen());
+    AppFunctions.pushReplacement(
+        context: context,
+        screen: ChatScreen(
+          uid: userUid,
+        ));
   }
 
   static void pushReplacement({

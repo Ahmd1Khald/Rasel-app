@@ -46,11 +46,10 @@ dependencies:
   cached_network_image:
   # app route
   go_router:
-
-  equatable:
 # l & r
   dartz:
 
+  equatable: ^2.0.5
   shared_preferences: ^2.0.17
   intl: ^0.17.0
   google_fonts: ^4.0.1

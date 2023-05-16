@@ -160,7 +160,6 @@ class LoginCubit extends Cubit<LoginState> {
       print('+++++++++++++++++++++++');
       print(uid);
       print('+++++++++++++++++++++++');
-      //01101683770
 
       FirebaseFirestore.instance
           .collection('Users')
@@ -169,6 +168,8 @@ class LoginCubit extends Cubit<LoginState> {
           .listen((event) {
         print(event.data());
       });
+
+      //01101683770
     } catch (e) {
       // Handle any errors that occur during the retrieval
       print('Error retrieving user data: $e');

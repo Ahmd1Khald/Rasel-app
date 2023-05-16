@@ -1,4 +1,3 @@
-import 'package:chatapp/core/utils/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,14 +29,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Chat App',
-          home: const SplashScreen(),
-          theme: ThemeData(
-            primaryColor: AppColors.lightGrey,
-            primaryColorLight: AppColors.lightGrey,
-          ),
+          home: SplashScreen(),
           //routerConfig: AppRouter.router,
         );
       },

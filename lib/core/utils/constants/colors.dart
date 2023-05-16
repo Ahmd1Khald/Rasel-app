@@ -8,6 +8,10 @@ class AppColors {
   static Color? midGrey = HexColor('#E9EDF1');
   static Color lightGrey = HexColor('#F5F7FA');
   static Color? deepGrey = HexColor('#5A5A5A');
+  static Color? deepDark = HexColor('#1e1e1e');
+  static Color? dark = HexColor('#252526');
+  static Color? midDark = HexColor('#2d2d30');
+  static Color? lightDark = HexColor('#3e3e42');
   static Color blue = HexColor('#4A86F7');
   //TO #4A86F7
   static Color skyBlue = HexColor('#57B6F0');
@@ -17,6 +21,11 @@ class AppColors {
   static Color green = HexColor('#73BC78');
   static Color green2 = HexColor('#438A62');
   //TO 438A62
+
+  //	#
+  //	#
+  //
+  //  #
 
   static Color? messageColor = Colors.green[300];
 

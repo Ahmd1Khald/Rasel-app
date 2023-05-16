@@ -2,7 +2,6 @@ import 'package:chatapp/Features/auth/presentation/manger/phone_cubit/phone_cubi
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_button.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_code_screen.dart';
 import 'package:chatapp/core/widgets/components.dart';
-import 'package:chatapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,10 +37,7 @@ class PhoneAuthScreen extends StatelessWidget {
             );
           } else if (state is PhoneSuccessConfirmOtpState) {
             myToast(state: 'Confirmed!', toastState: ToastState.success);
-            AppFunctions.push(
-              context: context,
-              screen: const ChatScreen(),
-            );
+            AppFunctions.submit(context: context, userUid: state.uid);
           }
           //Error
           else if (state is PhoneErrorSendOtpState) {

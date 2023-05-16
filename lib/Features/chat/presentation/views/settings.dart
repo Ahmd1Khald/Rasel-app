@@ -1,12 +1,10 @@
+import 'package:chatapp/Features/chat/presentation/manger/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../bloc/cubit.dart';
-import '../bloc/state.dart';
-import '../core/utils/constants/colors.dart';
-import '../core/utils/constants/fonts_sizes.dart';
-import '../core/widgets/components.dart';
+import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/fonts_sizes.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -18,14 +16,15 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
-        if (state is AppSuccessGetFontSizeState) {
+        /*if (state is AppSuccessGetFontSizeState) {
           myToast(state: "Saved Successfully", toastState: ToastState.success);
           //AppFunctions.submit(context);
-        } else if (state is AppErrorGetFontSizeState) {
-          myToast(state: "Save Failed", toastState: ToastState.error);
         }
+        else if (state is AppErrorGetFontSizeState) {
+          myToast(state: "Save Failed", toastState: ToastState.error);
+        }*/
       },
       builder: (context, state) {
         return Scaffold(
@@ -83,7 +82,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 setState(() {
                                   AppFontsSize.messageFontSize = 15;
                                 });
-                                AppCubit.get(context).saveSettings();
+                                //AppCubit.get(context).saveSettings();
                               },
                               child: const Text(
                                 'Reset',
@@ -91,18 +90,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                   fontSize: 15,
                                 ),
                               )),
-                          if (state is AppLoadingGetFontSizeState)
-                            Center(
-                              child: LinearProgressIndicator(
-                                color: AppColors.backgroundColor,
-                              ),
-                            ),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.backgroundColor),
                               onPressed: () {
-                                AppCubit.get(context).saveSettings();
-                                Navigator.of(context).pop();
+                                // AppCubit.get(context).saveSettings();
+                                // Navigator.of(context).pop();
                               },
                               child: const Text(
                                 'Save',
