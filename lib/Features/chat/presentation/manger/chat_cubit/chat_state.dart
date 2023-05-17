@@ -16,3 +16,12 @@ class ChatErrorFetchUserData extends ChatState {
   final String errorMsg;
   ChatErrorFetchUserData(this.errorMsg);
 }
+
+class ChatLoadingLogoutState extends ChatState {}
+
+class ChatSuccessLogoutState extends ChatState {}
+
+class ChatErrorLogoutState extends ChatState {
+  final String errMessage;
+  ChatErrorLogoutState(this.errMessage);
+}

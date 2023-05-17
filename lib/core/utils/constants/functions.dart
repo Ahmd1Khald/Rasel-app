@@ -1,3 +1,4 @@
+import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/Features/chat/presentation/views/chat_screen.dart';
 import 'package:chatapp/core/utils/constants/keys.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,6 +33,13 @@ class AppFunctions {
         screen: ChatScreen(
           uid: userUid,
         ));
+  }
+
+  static void leave({required context}) {
+    AppFunctions.pushReplacement(
+      context: context,
+      screen: const LoginScreen(),
+    );
   }
 
   static void pushReplacement({

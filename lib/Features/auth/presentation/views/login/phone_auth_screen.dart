@@ -1,6 +1,7 @@
 import 'package:chatapp/Features/auth/presentation/manger/phone_cubit/phone_cubit.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_button.dart';
 import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_code_screen.dart';
+import 'package:chatapp/core/utils/constants/variables.dart';
 import 'package:chatapp/core/widgets/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +39,7 @@ class PhoneAuthScreen extends StatelessWidget {
           } else if (state is PhoneSuccessConfirmOtpState) {
             myToast(state: 'Confirmed!', toastState: ToastState.success);
             AppFunctions.submit(context: context, userUid: state.uid);
+            AppVariables.userPhoneAuth = true;
           }
           //Error
           else if (state is PhoneErrorSendOtpState) {
@@ -143,7 +145,7 @@ class PhoneAuthScreen extends StatelessWidget {
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
                                         return 'Enter your phone number';
-                                      } else if (value.length < 11) {
+                                      } else if (value.length < 10) {
                                         return 'Too short phone number';
                                       }
                                       return null;

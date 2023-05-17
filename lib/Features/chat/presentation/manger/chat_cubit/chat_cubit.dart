@@ -1,5 +1,9 @@
 import 'package:chatapp/Features/chat/data/repos/repo.dart';
+import 'package:chatapp/core/helpers/cachehelper.dart';
+import 'package:chatapp/core/utils/constants/keys.dart';
+import 'package:chatapp/core/utils/constants/variables.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/models/user_model.dart';
@@ -22,5 +26,20 @@ class ChatCubit extends Cubit<ChatState> {
     }, (userData) {
       emit(ChatSuccessFetchUserData(userData));
     });
+  }
+
+  final GoogleSignIn gSignIn = GoogleSignIn();
+
+  void logout() async {
+    emit(ChatLoadingLogoutState());
+    try {
+      await gSignIn.signOut();
+      CacheHelper.removeData(key: AppKeys.userUid);
+      CacheHelper.removeData(key: AppKeys.loginDone);
+      AppVariables.userPhoneAuth = false;
+      emit(ChatSuccessLogoutState());
+    } catch (error) {
+      emit(ChatErrorLogoutState(error.toString()));
+    }
   }
 }

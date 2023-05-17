@@ -1,6 +1,4 @@
-import 'package:chatapp/Features/auth/presentation/views/login/login_screen.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
-import 'package:chatapp/core/utils/constants/keys.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../../core/helpers/cachehelper.dart';
 import '../../../../../core/utils/constants/variables.dart';
 
 part 'login_state.dart';
@@ -174,20 +171,5 @@ class LoginCubit extends Cubit<LoginState> {
       // Handle any errors that occur during the retrieval
       print('Error retrieving user data: $e');
     }
-  }
-
-  Future<void> googleSignOut(context) async {
-    emit(LoginLoadingGoogleSignOutState());
-    await gSignIn.signOut().then((value) {
-      AppFunctions.pushReplacement(
-          context: context, screen: const LoginScreen());
-
-      print("user uid is => $AppKeys.userUid");
-      CacheHelper.removeData(key: AppKeys.userUid);
-      CacheHelper.removeData(key: AppKeys.loginDone);
-      emit(LoginSuccessGoogleSignOutState());
-    }).catchError((error) {
-      emit(LoginErrorGoogleSignOutState(error.toString()));
-    });
   }
 }

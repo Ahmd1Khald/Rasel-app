@@ -40,7 +40,7 @@ class SplashBody extends StatelessWidget {
             : const LoginScreen(),
 
         ///Todo change it to false
-        splashIconSize: 100.sp,
+        splashIconSize: 90.sp,
         duration: 1800,
         //splashTransition: SplashTransition.slideTransition,
         animationDuration: const Duration(seconds: 2),

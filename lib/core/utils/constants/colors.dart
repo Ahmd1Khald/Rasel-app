@@ -8,10 +8,10 @@ class AppColors {
   static Color? midGrey = HexColor('#E9EDF1');
   static Color lightGrey = HexColor('#F5F7FA');
   static Color? deepGrey = HexColor('#5A5A5A');
-  static Color? deepDark = HexColor('#1e1e1e');
+  static Color? deepDark = HexColor('#1d1f25');
   static Color? dark = HexColor('#252526');
-  static Color? midDark = HexColor('#2d2d30');
-  static Color? lightDark = HexColor('#3e3e42');
+  static Color? midDark = HexColor('#4c5366');
+  static Color? lightDark = HexColor('#2b303b');
   static Color blue = HexColor('#4A86F7');
   //TO #4A86F7
   static Color skyBlue = HexColor('#57B6F0');
@@ -34,4 +34,6 @@ class AppColors {
   static const Color activeBorderColor = Colors.green;
 
   static const Color cursorColor = Colors.white;
+
+  static Color? chatBackGroundColor = Colors.grey[500]?.withOpacity(0.7);
 }

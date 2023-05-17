@@ -5,21 +5,28 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppStyles {
   static TextStyle title1 = GoogleFonts.ubuntu(
-    color: AppColors.lightGrey,
-    fontWeight: FontWeight.bold,
-    fontSize: 35.sp
-  );
+      color: AppColors.lightGrey, fontWeight: FontWeight.bold, fontSize: 35.sp);
+
   static TextStyle title2 = GoogleFonts.ubuntu(
-    color: AppColors.lightGrey,
+      color: AppColors.lightGrey, fontWeight: FontWeight.bold, fontSize: 22.sp);
+
+  static TextStyle drawerStyles = GoogleFonts.tajawal(
+    color: AppColors.deepDark,
     fontWeight: FontWeight.bold,
-    fontSize: 22.sp
+    fontSize: 15.sp,
   );
+
   static TextStyle title3 = GoogleFonts.ubuntu(
     color: AppColors.midGrey,
     fontWeight: FontWeight.bold,
     fontSize: 18.sp,
   );
 
+  static TextStyle drawerHeaderStyle = GoogleFonts.nunito(
+    color: AppColors.lightGrey,
+    fontWeight: FontWeight.bold,
+    fontSize: 18.sp,
+  );
 
   static TextStyle hintText = GoogleFonts.ubuntu(
     color: AppColors.midGrey,

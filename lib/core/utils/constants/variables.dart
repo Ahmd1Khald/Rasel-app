@@ -8,4 +8,6 @@ class AppVariables {
   static late final String phoneAuthId;
 
   static late final String verifiedId;
+
+  static bool userPhoneAuth = false;
 }
