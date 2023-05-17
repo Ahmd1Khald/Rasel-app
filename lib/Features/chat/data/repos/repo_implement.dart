@@ -10,7 +10,6 @@ class ChatRepoImplement implements ChatRepo {
       {required String uid}) async {
     try {
       UserModel userData = const UserModel();
-
       var snapshot =
           await FirebaseFirestore.instance.collection('Users').doc(uid).get();
 

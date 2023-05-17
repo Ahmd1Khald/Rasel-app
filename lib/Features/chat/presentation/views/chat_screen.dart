@@ -2,15 +2,14 @@ import 'package:chatapp/Features/chat/data/models/user_model.dart';
 import 'package:chatapp/Features/chat/data/repos/repo_implement.dart';
 import 'package:chatapp/Features/chat/presentation/manger/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
-import 'package:chatapp/core/utils/constants/styles.dart';
 import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/constants/colors.dart';
 import 'chat_widgets/chat_appbar.dart';
+import 'chat_widgets/chat_textformfield.dart';
 import 'mydrawer.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -29,13 +28,23 @@ class ChatScreen extends StatelessWidget {
       create: (context) =>
           ChatCubit(ChatRepoImplement())..fetchUserData(uid: uid),
       child: BlocConsumer<ChatCubit, ChatState>(listener: (context, state) {
+        //Loading
         if (state is ChatLoadingFetchUserData) {
           AppFunctions.loadingPage(context: context);
-        } else if (state is ChatErrorFetchUserData) {
+        } else if (state is ChatLoadingSendMessageState) {
+          AppFunctions.loadingPage(context: context);
+        }
+        //Error
+        else if (state is ChatErrorFetchUserData) {
           myToast(state: state.errorMsg, toastState: ToastState.error);
           print(state.errorMsg);
           //Navigator.pop(context);
-        } else if (state is ChatSuccessFetchUserData) {
+        } else if (state is ChatErrorSendMessageState) {
+          myToast(state: state.errMessage, toastState: ToastState.error);
+          Navigator.pop(context);
+        }
+        //Success
+        else if (state is ChatSuccessFetchUserData) {
           result = state.userData;
           print(result);
           myToast(state: 'Fetched success!', toastState: ToastState.success);
@@ -43,6 +52,8 @@ class ChatScreen extends StatelessWidget {
           print(result);
           print('--------------');
           //Navigator.pop(context);
+        } else if (state is ChatSuccessSendMessageState) {
+          Navigator.pop(context);
         }
       }, builder: (context, state) {
         return Scaffold(
@@ -58,254 +69,21 @@ class ChatScreen extends StatelessWidget {
           body: Column(
             children: [
               const Spacer(),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0.sp),
-                child: TextFormField(
-                  textAlign: TextAlign.left,
-                  textDirection: TextDirection.rtl,
-                  style: AppStyles.title3,
-                  //autofocus: true,
-                  cursorHeight: 25.h,
-                  cursorColor: AppColors.midGrey,
-                  decoration: InputDecoration(
-                    fillColor: AppColors.lightDark,
-                    filled: true,
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        // AppCubit.get(context).addMessage(
-                        //   image: CacheHelper.getDate(key: 'photoURL'),
-                        //   email: AppVariables.userEmail,
-                        //   messageController: messageController,
-                        //   scrollController: scrollController,
-                        // );
-                      },
-                      icon: Icon(
-                        Icons.send,
-                        color: AppColors.lightGrey,
-                      ),
-                    ),
-                    hintText: 'Message',
-                    hintStyle: AppStyles.hintText,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.lightDark!),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.lightDark!),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.lightDark!),
-                    ),
-                  ),
-                  controller: messageController,
-                  keyboardType: TextInputType.text,
-                ),
+              ChatTextFormField(
+                onPressed: () {
+                  ChatCubit.get(context).addMessage(
+                    messageController: messageController,
+                    name: result?.name,
+                    phone: result?.phone,
+                    image: result?.image,
+                    email: result?.email,
+                  );
+                },
+                messageController: messageController,
               ),
             ],
           ),
         );
-
-        /*StreamBuilder<QuerySnapshot>(
-          stream: message.orderBy('createdAt', descending: true).snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text("Something went wrong");
-            }
-            if (snapshot.hasData) {
-              return Scaffold(
-                backgroundColor: HexColor('#dedede'),
-                appBar: AppBar(
-                  backgroundColor: AppColors.backgroundColor,
-                  // centerTitle: true,
-                  actions: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SpinKitSpinningCircle(
-                          itemBuilder: (BuildContext context, int index) {
-                            return const DecoratedBox(
-                              decoration: BoxDecoration(
-                                  //color: index.isEven ? Colors.white : Colors.white.withOpacity(0.5),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/logo.png'))),
-                            );
-                          },
-                          duration: const Duration(milliseconds: 2500),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          'Chat App',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 100,
-                    ),
-                  ],
-                ),
-                drawer: const MyDrawer(),
-                body: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        reverse: true,
-                        controller: scrollController,
-                        shrinkWrap: true,
-                        //physics: const FixedExtentScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            snapshot.data!.docs[index]['userEmail'],
-                        */ /*? builtMyMessage(
-                              backgroundColor: AppColors.messageColor!,
-                              msg: snapshot.data!.docs[index]['text'],
-                              time: snapshot.data!.docs[index]['time'],
-                              year: snapshot.data!.docs[index]['year'],
-                              image: snapshot.data!.docs[index]['image'],
-                            )
-                                : builtFriendsMessage(
-                              image: snapshot.data!.docs[index]['image'],
-                              backgroundColor: Colors.grey,
-                              msg: snapshot.data!.docs[index]['text'],
-                              time: snapshot.data!.docs[index]['time'],
-                              year: snapshot.data!.docs[index]['year'],
-                            ),
-*/ /*
-                        itemCount: snapshot.data!.docs.isNotEmpty
-                            ? snapshot.data!.docs.length
-                            : 0,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            cursorColor: AppColors.backgroundColor,
-                            cursorHeight: 30,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    // if (messageController.text.isNotEmpty) {
-                                    //   AppCubit.get(context).addMessage(
-                                    //       email: AppVariables.userEmail,
-                                    //       messageController:
-                                    //       messageController,
-                                    //       scrollController: scrollController,
-                                    //       image: CacheHelper.getDate(
-                                    //           key: 'photoURL'));
-                                    // }
-                                  },
-                                  icon: Icon(
-                                    Icons.send,
-                                    color: AppColors.backgroundColor,
-                                  )),
-                              hintText: 'Message',
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.backgroundColor)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.backgroundColor)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.backgroundColor)),
-                            ),
-                            controller: messageController,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Email is too small';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                backgroundColor: AppColors.backgroundColor,
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/chat.png',
-                      width: 40,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Chat App',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-              body: Column(
-                children: [
-                  Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.backgroundColor,
-                    ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      cursorColor: AppColors.backgroundColor,
-                      cursorHeight: 30,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              // AppCubit.get(context).addMessage(
-                              //   image: CacheHelper.getDate(key: 'photoURL'),
-                              //   email: AppVariables.userEmail,
-                              //   messageController: messageController,
-                              //   scrollController: scrollController,
-                              // );
-                            },
-                            icon: Icon(
-                              Icons.send,
-                              color: AppColors.backgroundColor,
-                            )),
-                        hintText: 'Message',
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.backgroundColor)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.backgroundColor)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.backgroundColor)),
-                      ),
-                      controller: messageController,
-                      keyboardType: TextInputType.text,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Email is too small';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );*/
       }),
     );
   }

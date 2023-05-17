@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:chatapp/bloc/state.dart';
 import 'package:chatapp/core/utils/constants/fonts_sizes.dart';
 import 'package:chatapp/core/utils/constants/functions.dart';
-import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -79,7 +78,7 @@ class AppCubit extends Cubit<AppStates> {
     }))
         .then((value) {
       messageController.clear();
-      scrollToObject(scrollController);
+      //scrollToObject(scrollController);
       emit(AppSuccessSendMessageState());
     }).catchError((error) {
       emit(AppErrorSendMessageState());

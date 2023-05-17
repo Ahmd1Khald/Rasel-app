@@ -220,11 +220,3 @@ Widget builtFriendsMessage({
         )
       ],
     );
-
-void scrollToObject(ScrollController scrollController) {
-  scrollController.animateTo(
-    0,
-    curve: Curves.easeIn,
-    duration: const Duration(milliseconds: 500),
-  );
-}

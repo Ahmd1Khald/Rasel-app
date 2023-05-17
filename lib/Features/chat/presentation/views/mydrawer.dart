@@ -72,7 +72,7 @@ class MyDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Share.share(
-                    '''*Chat app*\nU can develop it from my github https://github.com/Ahmd1Khald/chat_app ''');
+                    '''*Rasel app*\nU can develop it from my github \n https://github.com/Ahmd1Khald/chat_app ''');
                 Navigator.pop(context);
               },
             ),

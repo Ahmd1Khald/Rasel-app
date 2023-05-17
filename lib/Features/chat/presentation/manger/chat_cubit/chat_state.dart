@@ -25,3 +25,12 @@ class ChatErrorLogoutState extends ChatState {
   final String errMessage;
   ChatErrorLogoutState(this.errMessage);
 }
+
+class ChatLoadingSendMessageState extends ChatState {}
+
+class ChatSuccessSendMessageState extends ChatState {}
+
+class ChatErrorSendMessageState extends ChatState {
+  final String errMessage;
+  ChatErrorSendMessageState(this.errMessage);
+}
