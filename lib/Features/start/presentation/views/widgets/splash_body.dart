@@ -38,8 +38,6 @@ class SplashBody extends StatelessWidget {
                 uid: CacheHelper.getDate(key: AppKeys.userUid),
               )
             : const LoginScreen(),
-
-        ///Todo change it to false
         splashIconSize: 90.sp,
         duration: 1800,
         //splashTransition: SplashTransition.slideTransition,

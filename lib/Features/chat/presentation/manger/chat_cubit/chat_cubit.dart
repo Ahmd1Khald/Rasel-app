@@ -1,6 +1,7 @@
 import 'package:chatapp/Features/chat/data/repos/repo.dart';
 import 'package:chatapp/core/helpers/cachehelper.dart';
 import 'package:chatapp/core/utils/constants/keys.dart';
+import 'package:chatapp/core/utils/constants/strings.dart';
 import 'package:chatapp/core/utils/constants/variables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,6 +48,8 @@ class ChatCubit extends Cubit<ChatState> {
 
   late var message;
 
+  List<String> messages = [];
+
   Future<void> addMessage({
     required TextEditingController messageController,
     //required ScrollController scrollController,
@@ -58,9 +61,12 @@ class ChatCubit extends Cubit<ChatState> {
     emit(ChatLoadingSendMessageState());
     try {
       String userUid = CacheHelper.getDate(key: AppKeys.userUid);
-      message = FirebaseFirestore.instance.collection('Messages').doc(userUid);
+      messages.add(messageController.text);
+      message = FirebaseFirestore.instance
+          .collection(AppStrings.messagesCollection)
+          .doc(userUid);
       message.set(({
-        'message': messageController.text,
+        'messages': messages,
         'time': AppFunctions.dateTimeFormatted('t'),
         'year': AppFunctions.dateTimeFormatted('y'),
         'createdAt': DateTime.now(),

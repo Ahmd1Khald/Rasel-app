@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/utils/constants/functions.dart';
+import '../../../../../core/utils/constants/strings.dart';
 import '../../../../../core/utils/constants/variables.dart';
 
 part 'phone_state.dart';
@@ -71,7 +72,7 @@ class PhoneCubit extends Cubit<PhoneState> {
           await AppVariables.firebaseAuth.signInWithCredential(credential);
 
       user = FirebaseFirestore.instance
-          .collection('Users')
+          .collection(AppStrings.userCollection)
           .doc(userCredential.user!.uid);
 
       user.set(({
@@ -103,7 +104,7 @@ class PhoneCubit extends Cubit<PhoneState> {
       //01101683770
 
       FirebaseFirestore.instance
-          .collection('Users')
+          .collection(AppStrings.userCollection)
           .doc(uid)
           .snapshots()
           .listen((event) {

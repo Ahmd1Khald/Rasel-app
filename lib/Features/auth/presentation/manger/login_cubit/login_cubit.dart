@@ -1,4 +1,5 @@
 import 'package:chatapp/core/utils/constants/functions.dart';
+import 'package:chatapp/core/utils/constants/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class LoginCubit extends Cubit<LoginState> {
             .signInWithCredential(authCredential);
 
         user = FirebaseFirestore.instance
-            .collection('Users')
+            .collection(AppStrings.userCollection)
             .doc(userCredential.user!.uid);
 
         user.set(({
@@ -159,7 +160,7 @@ class LoginCubit extends Cubit<LoginState> {
       print('+++++++++++++++++++++++');
 
       FirebaseFirestore.instance
-          .collection('Users')
+          .collection(AppStrings.userCollection)
           .doc(uid)
           .snapshots()
           .listen((event) {

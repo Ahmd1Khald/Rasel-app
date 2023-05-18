@@ -1,4 +1,5 @@
 import 'package:chatapp/core/utils/constants/colors.dart';
+import 'package:chatapp/core/utils/constants/fonts_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,12 @@ class AppStyles {
     color: AppColors.lightGrey,
     fontWeight: FontWeight.bold,
     fontSize: 18.sp,
+  );
+
+  static TextStyle message = GoogleFonts.manrope(
+    color: AppColors.lightGrey,
+    fontWeight: FontWeight.bold,
+    fontSize: AppFontsSize.messageFontSize,
   );
 
   static TextStyle hintText = GoogleFonts.ubuntu(

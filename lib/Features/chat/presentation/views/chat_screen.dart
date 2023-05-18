@@ -6,10 +6,12 @@ import 'package:chatapp/core/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/strings.dart';
+import '../../../../core/utils/constants/styles.dart';
 import 'chat_widgets/chat_appbar.dart';
-import 'chat_widgets/chat_textformfield.dart';
 import 'mydrawer.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -23,7 +25,7 @@ class ChatScreen extends StatelessWidget {
     var scrollController = ScrollController();
     UserModel? result;
     CollectionReference message =
-        FirebaseFirestore.instance.collection('Messages');
+        FirebaseFirestore.instance.collection(AppStrings.messagesCollection);
     return BlocProvider(
       create: (context) =>
           ChatCubit(ChatRepoImplement())..fetchUserData(uid: uid),
@@ -46,13 +48,13 @@ class ChatScreen extends StatelessWidget {
         //Success
         else if (state is ChatSuccessFetchUserData) {
           result = state.userData;
-          print(result);
-          myToast(state: 'Fetched success!', toastState: ToastState.success);
+          //myToast(state: 'Fetched success!', toastState: ToastState.success);
           print('--------------');
           print(result);
           print('--------------');
           //Navigator.pop(context);
         } else if (state is ChatSuccessSendMessageState) {
+          print(messageController.text);
           Navigator.pop(context);
         }
       }, builder: (context, state) {
@@ -68,19 +70,67 @@ class ChatScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              const Spacer(),
-              ChatTextFormField(
-                onPressed: () {
-                  ChatCubit.get(context).addMessage(
-                    messageController: messageController,
-                    name: result?.name,
-                    phone: result?.phone,
-                    image: result?.image,
-                    email: result?.email,
-                  );
-                },
-                messageController: messageController,
-              ),
+              Spacer(),
+              /*Expanded(
+                          child: ListView.builder(
+                        itemBuilder: (context, index) => BuiltMyMessage(
+                          backgroundColor: AppColors.green,
+                          image: snapshot.data?.docs[index]['image'],
+                          msg: snapshot.data?.docs[index]['message'],
+                          name: snapshot.data?.docs[index]['name'],
+                          time: snapshot.data?.docs[index]['time'],
+                          year: snapshot.data?.docs[index]['year'],
+                          phone: '',
+                        ),
+                        reverse: true,
+                        controller: scrollController,
+                        itemCount: snapshot.data!.docs.isNotEmpty
+                            ? snapshot.data!.docs.length
+                            : 0,
+                      )),*/
+              Padding(
+                padding: EdgeInsets.only(top: 10.0.sp),
+                child: TextFormField(
+                  textAlign: TextAlign.left,
+                  textDirection: TextDirection.rtl,
+                  style: AppStyles.title3,
+                  //autofocus: true,
+                  cursorHeight: 25.h,
+                  cursorColor: AppColors.midGrey,
+                  decoration: InputDecoration(
+                    fillColor: AppColors.lightDark,
+                    filled: true,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        ChatCubit.get(context).addMessage(
+                          messageController: messageController,
+                          name: result?.name,
+                          email: result?.email,
+                          phone: result?.phone,
+                          image: result?.image,
+                        );
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: AppColors.lightGrey,
+                      ),
+                    ),
+                    hintText: 'Message',
+                    hintStyle: AppStyles.hintText,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.lightDark!),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.lightDark!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.lightDark!),
+                    ),
+                  ),
+                  controller: messageController,
+                  keyboardType: TextInputType.text,
+                ),
+              )
             ],
           ),
         );

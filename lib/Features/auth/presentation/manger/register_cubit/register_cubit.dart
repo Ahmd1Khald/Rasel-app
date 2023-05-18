@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatapp/core/utils/constants/functions.dart';
+import 'package:chatapp/core/utils/constants/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -94,8 +95,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: passController.text,
       );
 
-      user =
-          FirebaseFirestore.instance.collection('Users').doc(value.user!.uid);
+      user = FirebaseFirestore.instance
+          .collection(AppStrings.userCollection)
+          .doc(value.user!.uid);
 
       user.set(({
         'name': nameController.text,

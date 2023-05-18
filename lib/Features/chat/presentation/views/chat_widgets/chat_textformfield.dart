@@ -4,14 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/styles.dart';
 
-class ChatTextFormField extends StatelessWidget {
+class ChatTextFormField extends StatefulWidget {
+  final TextEditingController messageController;
   const ChatTextFormField(
       {Key? key, required this.onPressed, required this.messageController})
       : super(key: key);
 
   final VoidCallback onPressed;
-  final TextEditingController messageController;
 
+  @override
+  State<ChatTextFormField> createState() => _ChatTextFormFieldState();
+}
+
+class _ChatTextFormFieldState extends State<ChatTextFormField> {
   @override
   Widget build(BuildContext context) {
     var messageController = TextEditingController();
@@ -28,7 +33,7 @@ class ChatTextFormField extends StatelessWidget {
           fillColor: AppColors.lightDark,
           filled: true,
           suffixIcon: IconButton(
-            onPressed: onPressed,
+            onPressed: widget.onPressed,
             icon: Icon(
               Icons.send,
               color: AppColors.lightGrey,
