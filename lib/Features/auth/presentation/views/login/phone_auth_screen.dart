@@ -1,8 +1,8 @@
-import 'package:chatapp/Features/auth/presentation/manger/phone_cubit/phone_cubit.dart';
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_button.dart';
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/otp_code_screen.dart';
-import 'package:chatapp/core/utils/constants/variables.dart';
-import 'package:chatapp/core/widgets/components.dart';
+import 'package:RASEL/Features/auth/presentation/manger/phone_cubit/phone_cubit.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/phone_components/otp_button.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/phone_components/otp_code_screen.dart';
+import 'package:RASEL/core/utils/constants/variables.dart';
+import 'package:RASEL/core/widgets/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,5 +1,5 @@
-import 'package:chatapp/core/utils/constants/functions.dart';
-import 'package:chatapp/core/utils/constants/strings.dart';
+import 'package:RASEL/core/utils/constants/functions.dart';
+import 'package:RASEL/core/utils/constants/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -110,6 +110,7 @@ class LoginCubit extends Cubit<LoginState> {
           'email': userCredential.user!.email,
           'phone': userCredential.user!.phoneNumber,
           'image': userCredential.user!.photoURL,
+          'bio': 'Write your bio ...',
           'createdAt': AppFunctions.dateTimeFormatted('y'),
         }));
 
@@ -166,8 +167,6 @@ class LoginCubit extends Cubit<LoginState> {
           .listen((event) {
         print(event.data());
       });
-
-      //01101683770
     } catch (e) {
       // Handle any errors that occur during the retrieval
       print('Error retrieving user data: $e');

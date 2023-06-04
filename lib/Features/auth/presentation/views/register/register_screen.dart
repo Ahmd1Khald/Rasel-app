@@ -1,4 +1,4 @@
-import 'package:chatapp/Features/auth/presentation/views/register/widgets/register_body.dart';
+import 'package:RASEL/Features/auth/presentation/views/register/widgets/register_body.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {

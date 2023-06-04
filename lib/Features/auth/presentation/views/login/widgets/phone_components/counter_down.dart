@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:chatapp/core/utils/constants/styles.dart';
+import 'package:RASEL/core/utils/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 class CountdownWidget extends StatefulWidget {

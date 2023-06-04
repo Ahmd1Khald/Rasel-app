@@ -1,7 +1,7 @@
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/login_components/email_textfield.dart';
-import 'package:chatapp/Features/auth/presentation/views/register/widgets/phone_textfield.dart';
-import 'package:chatapp/Features/auth/presentation/views/register/widgets/register_title.dart';
-import 'package:chatapp/Features/auth/presentation/views/register/widgets/user_put_image.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/login_components/email_textfield.dart';
+import 'package:RASEL/Features/auth/presentation/views/register/widgets/phone_textfield.dart';
+import 'package:RASEL/Features/auth/presentation/views/register/widgets/register_title.dart';
+import 'package:RASEL/Features/auth/presentation/views/register/widgets/user_put_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

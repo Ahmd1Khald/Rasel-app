@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:chatapp/bloc/state.dart';
-import 'package:chatapp/core/utils/constants/fonts_sizes.dart';
-import 'package:chatapp/core/utils/constants/functions.dart';
+import 'package:RASEL/bloc/state.dart';
+import 'package:RASEL/core/utils/constants/fonts_sizes.dart';
+import 'package:RASEL/core/utils/constants/functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';

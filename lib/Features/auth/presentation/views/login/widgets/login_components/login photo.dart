@@ -1,4 +1,4 @@
-import 'package:chatapp/core/utils/constants/assets_images.dart';
+import 'package:RASEL/core/utils/constants/assets_images.dart';
 import 'package:flutter/material.dart';
 
 class LoginPhoto extends StatelessWidget {

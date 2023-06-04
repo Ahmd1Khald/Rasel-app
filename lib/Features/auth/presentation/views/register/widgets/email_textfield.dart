@@ -1,4 +1,4 @@
-import 'package:chatapp/core/utils/constants/styles.dart';
+import 'package:RASEL/core/utils/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

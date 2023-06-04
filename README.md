@@ -1,4 +1,4 @@
-# chatapp
+# RaselApp
 
 A new Flutter project.
 

@@ -1,5 +1,5 @@
-import 'package:chatapp/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/login_components/password_textfield.dart';
+import 'package:RASEL/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/login_components/password_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

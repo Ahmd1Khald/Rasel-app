@@ -1,5 +1,5 @@
-import 'package:chatapp/core/utils/constants/colors.dart';
-import 'package:chatapp/core/utils/constants/styles.dart';
+import 'package:RASEL/core/utils/constants/colors.dart';
+import 'package:RASEL/core/utils/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,7 +9,6 @@ class PassTextField extends StatefulWidget {
   const PassTextField({
     super.key,
     required this.passController,
-
   });
 
   @override
@@ -47,9 +46,9 @@ class _PassTextFieldState extends State<PassTextField> {
         border: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.lightGrey)),
         enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(color: AppColors.lightGrey)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.green)),
+            borderSide: BorderSide(color: AppColors.lightGrey)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: AppColors.green)),
       ),
       controller: widget.passController,
       obscureText: _obscureText,

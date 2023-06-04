@@ -1,5 +1,5 @@
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/phone_components/verify_code_form.dart';
-import 'package:chatapp/core/utils/constants/colors.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/phone_components/verify_code_form.dart';
+import 'package:RASEL/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -17,7 +17,7 @@ class PhoneCubit extends Cubit<PhoneState> {
   void sendOtp({required String phoneNumber}) async {
     emit(PhoneLoadingSendOtpState());
     await AppVariables.firebaseAuth.verifyPhoneNumber(
-      timeout: const Duration(seconds: 120),
+      timeout: const Duration(seconds: 90),
       phoneNumber: '+20$phoneNumber',
       verificationCompleted: (PhoneAuthCredential credential) async {
         UserCredential userCredential =
@@ -53,6 +53,7 @@ class PhoneCubit extends Cubit<PhoneState> {
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         AppVariables.verifiedId = verificationId;
+        emit(PhoneErrorSendOtpState('Time out, please try again!'));
       },
     );
   }
@@ -80,6 +81,7 @@ class PhoneCubit extends Cubit<PhoneState> {
         'email': userCredential.user!.email ?? '',
         'phone': userCredential.user!.phoneNumber,
         'image': userCredential.user!.photoURL ?? '',
+        'bio': 'Write your bio ...',
         'createdAt': AppFunctions.dateTimeFormatted('y'),
       }));
 

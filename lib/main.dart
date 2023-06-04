@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Chat App',
+          title: 'Rasel App',
           home: SplashScreen(),
           //routerConfig: AppRouter.router,
         );

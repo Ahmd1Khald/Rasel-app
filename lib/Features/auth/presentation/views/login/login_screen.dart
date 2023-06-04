@@ -1,4 +1,4 @@
-import 'package:chatapp/Features/auth/presentation/views/login/widgets/login_components/login_body.dart';
+import 'package:RASEL/Features/auth/presentation/views/login/widgets/login_components/login_body.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
