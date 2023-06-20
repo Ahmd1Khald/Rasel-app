@@ -4,4 +4,5 @@ class AppAssetsImages {
   static const loginImage = 'assets/images/login.png';
   static const phoneImage = 'assets/images/contact icon.png';
   static const defaultUserImage = 'assets/images/user.png';
+  static const feedCoverImage = 'assets/images/cover.jpg';
 }

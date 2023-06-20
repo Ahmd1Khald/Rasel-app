@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../data/repos/repo.dart';
-import '../../views/chat/chat_screen.dart';
 import '../../views/feeds_screen/feeds_screen.dart';
 import '../../views/users_screen/users_screen.dart';
 import 'home_state.dart';
@@ -34,7 +33,6 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> widgets = [
     const FeedsScreen(),
     const UsersScreen(),
-    const ChatScreen(),
   ];
 
   void bottomChanged({required int index}) {

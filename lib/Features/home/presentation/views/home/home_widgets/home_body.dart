@@ -1,4 +1,5 @@
 import 'package:RASEL/Features/home/presentation/manger/home_cubit/home_state.dart';
+import 'package:RASEL/Features/home/presentation/views/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -47,7 +48,30 @@ class HomeBody extends StatelessWidget {
         HomeCubit cubit = HomeCubit.get(context);
         print('result => $result');
         return Scaffold(
-          appBar: AppBar(),
+          backgroundColor: Colors.grey[350],
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  ///todo notification screen
+                },
+                icon: const Icon(
+                  Icons.notifications,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  AppFunctions.push(
+                    context: context,
+                    screen: const ChatScreen(),
+                  );
+                },
+                icon: const Icon(
+                  Icons.chat_bubble,
+                ),
+              ),
+            ],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
             onTap: (index) {
@@ -73,15 +97,6 @@ class HomeBody extends StatelessWidget {
                   ),
                 ),
                 label: 'User',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.chat,
-                  ),
-                ),
-                label: 'Chat',
               ),
             ],
           ),

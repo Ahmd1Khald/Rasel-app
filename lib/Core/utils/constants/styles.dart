@@ -35,6 +35,31 @@ class AppStyles {
     fontSize: AppFontsSize.messageFontSize,
   );
 
+  static TextStyle postUserName = GoogleFonts.manrope(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 17,
+  );
+
+  static TextStyle postDate = GoogleFonts.manrope(
+    color: Colors.grey[900],
+    fontWeight: FontWeight.w500,
+    fontSize: 11,
+  );
+
+  static TextStyle postText = GoogleFonts.manrope(
+    color: Colors.black,
+    height: 1.4,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
+
+  static TextStyle postTages = GoogleFonts.manrope(
+    color: Colors.blue,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  );
+
   static TextStyle hintText = GoogleFonts.ubuntu(
     color: AppColors.midGrey,
     fontWeight: FontWeight.bold,

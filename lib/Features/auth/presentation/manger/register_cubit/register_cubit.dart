@@ -45,6 +45,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (pickerImage != null) {
       imagePath = File(pickerImage.path);
       print('test image => $imagePath');
+
       if (CacheHelper.getDate(key: 'imagesCounter') == null) {
         uploadImage(numImage: numImage, image: imagePath).then((value) {
           emit(RegisterSuccessUploadPhotoState());

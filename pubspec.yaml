@@ -20,6 +20,8 @@ dependencies:
   # Bloc
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
+  # video
+  video_player: ^2.3.0
 
   cached_network_image:
   # app route

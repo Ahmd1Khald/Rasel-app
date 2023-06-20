@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../../../Core/utils/constants/colors.dart';
 import '../../../../../core/helpers/cachehelper.dart';
 import '../../../../../core/utils/constants/assets_images.dart';
-import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/keys.dart';
 import '../../../../auth/presentation/views/login/login_screen.dart';
 import '../../../../home/presentation/views/home/home_screen.dart';
@@ -23,12 +23,13 @@ class SplashBody extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage(
-                  AppAssetsImages.logoImage,
+                image: DecorationImage(
+                  image: AssetImage(
+                    AppAssetsImages.logoImage,
+                  ),
+                  fit: BoxFit.contain,
                 ),
-                fit: BoxFit.contain,
-              )),
+              ),
             );
           },
           duration: const Duration(milliseconds: 3620),

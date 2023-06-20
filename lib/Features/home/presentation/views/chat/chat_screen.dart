@@ -7,7 +7,6 @@ import '../../../../../core/utils/constants/strings.dart';
 import '../../../../../core/utils/constants/styles.dart';
 import '../../../data/models/user_model.dart';
 import '../../manger/chat_cubit/chat_cubit.dart';
-import '../drawer/mydrawer.dart';
 import 'chat_widgets/chat_appbar.dart';
 import 'chat_widgets/my_message.dart';
 
@@ -32,9 +31,6 @@ class ChatScreen extends StatelessWidget {
               backgroundColor: AppColors.lightDark,
               centerTitle: true,
               actions: const [ChatAppBar()],
-            ),
-            drawer: MyDrawer(
-              userdata: result,
             ),
             body: Column(
               children: [

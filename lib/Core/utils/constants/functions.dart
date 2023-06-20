@@ -28,7 +28,7 @@ class AppFunctions {
   static void submit({required context, required String userUid}) {
     CacheHelper.saveData(key: AppKeys.loginDone, value: true);
     CacheHelper.saveData(key: AppKeys.userUid, value: userUid);
-    AppFunctions.pushReplacement(
+    AppFunctions.pushAndRemove(
         context: context,
         screen: HomeScreen(
           uid: userUid,
@@ -36,21 +36,23 @@ class AppFunctions {
   }
 
   static void leave({required context}) {
-    AppFunctions.pushReplacement(
+    AppFunctions.pushAndRemove(
       context: context,
       screen: const LoginScreen(),
     );
   }
 
-  static void pushReplacement({
+  static void pushAndRemove({
     required context,
     required Widget screen,
   }) {
-    Navigator.pushReplacement(
-        context,
-        CupertinoPageRoute(
-          builder: (context) => screen,
-        ));
+    Navigator.pushAndRemoveUntil(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => screen,
+      ),
+      (route) => false, // Remove all previous routes
+    );
   }
 
   static void push({
