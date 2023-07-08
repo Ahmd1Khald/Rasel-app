@@ -10,4 +10,6 @@ class AppVariables {
   static late final String verifiedId;
 
   static bool userPhoneAuth = false;
+
+  static bool isDark = false;
 }

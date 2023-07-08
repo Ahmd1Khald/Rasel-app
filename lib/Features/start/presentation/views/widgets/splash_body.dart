@@ -8,10 +8,12 @@ import '../../../../../core/helpers/cachehelper.dart';
 import '../../../../../core/utils/constants/assets_images.dart';
 import '../../../../../core/utils/constants/keys.dart';
 import '../../../../auth/presentation/views/login/login_screen.dart';
-import '../../../../home/presentation/views/home/home_screen.dart';
+import '../../../../layout/presentation/views/layout/layout_screen.dart';
 
 class SplashBody extends StatelessWidget {
-  const SplashBody({Key? key}) : super(key: key);
+  const SplashBody({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class SplashBody extends StatelessWidget {
           duration: const Duration(milliseconds: 3620),
         ),
         nextScreen: CacheHelper.getDate(key: AppKeys.loginDone) == true
-            ? HomeScreen(
+            ? LayoutScreen(
                 uid: CacheHelper.getDate(key: AppKeys.userUid),
               )
             : const LoginScreen(),

@@ -6,27 +6,33 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppStyles {
   static TextStyle title1 = GoogleFonts.ubuntu(
-      color: AppColors.lightGrey, fontWeight: FontWeight.bold, fontSize: 35.sp);
+    color: AppColors.lightGrey,
+    fontWeight: FontWeight.bold,
+    fontSize: 35.sp,
+  );
 
   static TextStyle title2 = GoogleFonts.ubuntu(
-      color: AppColors.lightGrey, fontWeight: FontWeight.bold, fontSize: 22.sp);
+    color: AppColors.lightGrey,
+    fontWeight: FontWeight.bold,
+    fontSize: 22.sp,
+  );
 
   static TextStyle drawerStyles = GoogleFonts.tajawal(
-    color: AppColors.deepDark,
-    fontWeight: FontWeight.bold,
-    fontSize: 15.sp,
+    color: AppColors.lightGrey,
+    fontWeight: FontWeight.w500,
+    fontSize: 18.sp,
   );
 
   static TextStyle title3 = GoogleFonts.ubuntu(
-    color: AppColors.midGrey,
+    color: AppColors.lightGrey,
     fontWeight: FontWeight.bold,
-    fontSize: 18.sp,
+    fontSize: 19.sp,
   );
 
   static TextStyle drawerHeaderStyle = GoogleFonts.nunito(
     color: AppColors.lightGrey,
     fontWeight: FontWeight.bold,
-    fontSize: 18.sp,
+    fontSize: 25.sp,
   );
 
   static TextStyle message = GoogleFonts.manrope(
@@ -36,15 +42,15 @@ class AppStyles {
   );
 
   static TextStyle postUserName = GoogleFonts.manrope(
-    color: Colors.black,
+    color: AppColors.lightGrey,
     fontWeight: FontWeight.bold,
-    fontSize: 17,
+    fontSize: 17.sp,
   );
 
   static TextStyle postDate = GoogleFonts.manrope(
-    color: Colors.grey[900],
+    color: AppColors.lightGrey,
     fontWeight: FontWeight.w500,
-    fontSize: 11,
+    fontSize: 14.sp,
   );
 
   static TextStyle postText = GoogleFonts.manrope(
@@ -61,8 +67,14 @@ class AppStyles {
   );
 
   static TextStyle hintText = GoogleFonts.ubuntu(
-    color: AppColors.midGrey,
+    color: AppColors.lightGrey,
     fontWeight: FontWeight.bold,
-    fontSize: 15.sp,
+    fontSize: 16.sp,
+  );
+
+  static TextStyle hintPost = GoogleFonts.ubuntu(
+    color: Colors.grey[500],
+    fontWeight: FontWeight.bold,
+    fontSize: 11.sp,
   );
 }

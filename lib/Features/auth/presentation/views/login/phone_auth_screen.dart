@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utils/constants/assets_images.dart';
 import '../../../../../core/utils/constants/colors.dart';
@@ -38,7 +39,10 @@ class PhoneAuthScreen extends StatelessWidget {
             );
           } else if (state is PhoneSuccessConfirmOtpState) {
             myToast(state: 'Confirmed!', toastState: ToastState.success);
-            AppFunctions.submit(context: context, userUid: state.uid);
+            AppFunctions.submit(
+              context: context,
+              userUid: state.uid,
+            );
             AppVariables.userPhoneAuth = true;
           }
           //Error
@@ -97,14 +101,18 @@ class PhoneAuthScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6.sp),
                                       color:
-                                          AppColors.midGrey!.withOpacity(0.2),
+                                          AppColors.lightGrey.withOpacity(0.2),
                                       border: Border.all(
                                           color: AppColors.lightGrey),
                                     ),
                                     child: Center(
                                       child: Text(
                                         '${AppFunctions.generateCountryFlag()} +20',
-                                        style: AppStyles.title3,
+                                        style: GoogleFonts.ubuntu(
+                                          color: AppColors.lightGrey,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.sp,
+                                        ),
                                       ),
                                     ),
                                   ),

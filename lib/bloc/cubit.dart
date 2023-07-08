@@ -30,7 +30,9 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingRegisterState());
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: emailController.text, password: passController.text)
+      email: emailController.text,
+      password: passController.text,
+    )
         .then((value) {
       user = FirebaseFirestore.instance.collection('Users');
       CacheHelper.saveData(key: 'userEmail', value: emailController.text);

@@ -1,10 +1,10 @@
 import 'package:RASEL/Features/auth/presentation/views/login/login_screen.dart';
-import 'package:RASEL/Features/home/presentation/views/home/home_screen.dart';
 import 'package:RASEL/core/utils/constants/keys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../Features/layout/presentation/views/layout/layout_screen.dart';
 import '../../helpers/cachehelper.dart';
 import '../../widgets/components.dart';
 import 'colors.dart';
@@ -25,17 +25,22 @@ class AppFunctions {
     }
   }
 
-  static void submit({required context, required String userUid}) {
+  static void submit({
+    required context,
+    required String userUid,
+  }) {
     CacheHelper.saveData(key: AppKeys.loginDone, value: true);
     CacheHelper.saveData(key: AppKeys.userUid, value: userUid);
     AppFunctions.pushAndRemove(
         context: context,
-        screen: HomeScreen(
+        screen: LayoutScreen(
           uid: userUid,
         ));
   }
 
-  static void leave({required context}) {
+  static void leave({
+    required context,
+  }) {
     AppFunctions.pushAndRemove(
       context: context,
       screen: const LoginScreen(),

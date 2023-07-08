@@ -16,7 +16,9 @@ import 'login_button.dart';
 import 'name_textfield.dart';
 
 class RegisterBody extends StatelessWidget {
-  const RegisterBody({Key? key}) : super(key: key);
+  const RegisterBody({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,10 @@ class RegisterBody extends StatelessWidget {
             Navigator.pop(context);
           } else if (state is RegisterSuccessState) {
             myToast(state: "Register success!", toastState: ToastState.success);
-            AppFunctions.submit(context: context, userUid: state.uid);
+            AppFunctions.submit(
+              context: context,
+              userUid: state.uid,
+            );
           }
           //Error
           else if (state is RegisterErrorUploadPhotoState) {
@@ -120,6 +125,16 @@ class RegisterBody extends StatelessWidget {
                                   image: RegisterCubit.get(context).userImage ??
                                       'null',
                                 );
+
+                                // RegisterCubit.get(context).testRegister(
+                                //   emailController: emailController,
+                                //   passController: passController,
+                                //   nameController: nameController,
+                                //   phoneController: phoneController,
+                                // );
+
+                                // RegisterCubit.get(context).addProject();
+                                // RegisterCubit.get(context).addTask();
                               }
                             },
                           ),

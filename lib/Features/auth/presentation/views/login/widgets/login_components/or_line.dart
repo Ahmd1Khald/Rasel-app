@@ -15,16 +15,19 @@ class OrLine extends StatelessWidget {
         Container(
           height: 1.h,
           width: 120.w,
-          color: AppColors.midGrey,
+          color: AppColors.lightGrey,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-          child: Text('OR',style: AppStyles.title3,),
+          child: Text(
+            'OR',
+            style: AppStyles.title3,
+          ),
         ),
         Container(
           height: 1.h,
           width: 120.w,
-          color: AppColors.midGrey,
+          color: AppColors.lightGrey,
         ),
       ],
     );

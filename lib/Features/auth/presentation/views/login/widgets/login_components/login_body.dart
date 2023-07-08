@@ -18,7 +18,9 @@ import 'login_title.dart';
 import 'or_line.dart';
 
 class LoginBody extends StatelessWidget {
-  const LoginBody({Key? key}) : super(key: key);
+  const LoginBody({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,16 @@ class LoginBody extends StatelessWidget {
           //Success
           if (state is LoginSuccessState) {
             myToast(state: "Login Success", toastState: ToastState.success);
-            AppFunctions.submit(context: context, userUid: state.uid);
+            AppFunctions.submit(
+              context: context,
+              userUid: state.uid,
+            );
           } else if (state is LoginSuccessGoogleSignInState) {
             myToast(state: "Login Success", toastState: ToastState.success);
-            AppFunctions.submit(context: context, userUid: state.uid);
+            AppFunctions.submit(
+              context: context,
+              userUid: state.uid,
+            );
           }
           //Error
           else if (state is LoginErrorState) {

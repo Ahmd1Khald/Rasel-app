@@ -33,7 +33,7 @@ class LastText extends StatelessWidget {
             if (secondText == 'Sign up') {
               AppFunctions.push(
                 context: context,
-                screen: const RegisterScreen(),
+                screen: RegisterScreen(),
               );
             } else {
               Navigator.pop(context);
