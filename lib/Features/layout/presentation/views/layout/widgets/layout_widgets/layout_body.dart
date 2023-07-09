@@ -6,13 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../../Core/utils/constants/functions.dart';
-import '../../../../../../Core/widgets/components.dart';
-import '../../../../data/models/user_model.dart';
-import '../../../../data/repos/repo_implement.dart';
-import '../../../manger/layout_cubit/layout_cubit.dart';
-import '../../../manger/layout_cubit/layout_state.dart';
-import '../../drawer/mydrawer.dart';
+import '../../../../../../../Core/utils/constants/functions.dart';
+import '../../../../../../../Core/widgets/components.dart';
+import '../../../../../data/models/user_model.dart';
+import '../../../../../data/repos/repo_implement.dart';
+import '../../../../manger/layout_cubit/layout_cubit.dart';
+import '../../../../manger/layout_cubit/layout_state.dart';
+import '../../../drawer/mydrawer.dart';
 import 'add_post.dart';
 
 class LayoutBody extends StatelessWidget {
@@ -56,11 +56,10 @@ class LayoutBody extends StatelessWidget {
           builder: (context, state) {
             print('result => $result');
             //LayoutCubit cubit = LayoutCubit.get(context);
-
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
               appBar: AppBar(
-                backgroundColor: AppColors.midDark,
+                backgroundColor: AppColors.sidesColor,
                 title: SpinKitSpinningCircle(
                   itemBuilder: (BuildContext context, int index) {
                     return DecoratedBox(
@@ -118,7 +117,7 @@ class LayoutBody extends StatelessWidget {
 Widget myBottomNavBar({required context}) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: BottomNavigationBar(
-        backgroundColor: AppColors.midDark!.withOpacity(0.3),
+        backgroundColor: AppColors.sidesColor!,
         currentIndex: LayoutCubit.get(context).currentIndex,
         onTap: (index) {
           LayoutCubit.get(context).bottomChanged(index: index);

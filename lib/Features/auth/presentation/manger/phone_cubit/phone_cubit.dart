@@ -1,8 +1,11 @@
+import 'package:RASEL/Core/helpers/cachehelper.dart';
+import 'package:RASEL/Core/utils/constants/keys.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../Core/utils/constants/network_images.dart';
 import '../../../../../core/utils/constants/functions.dart';
 import '../../../../../core/utils/constants/strings.dart';
 import '../../../../../core/utils/constants/variables.dart';
@@ -81,11 +84,15 @@ class PhoneCubit extends Cubit<PhoneState> {
         'email': userCredential.user!.email ?? '',
         'phone': userCredential.user!.phoneNumber,
         'image': userCredential.user!.photoURL ?? '',
+        'cover': AppNetworksImages.coverImage,
         'bio': 'Write your bio ...',
         'createdAt': AppFunctions.dateTimeFormatted('y'),
       }));
-
+      //AppVariables.userPhoneAuth = true;
+      CacheHelper.saveData(key: AppKeys.userPhoneAuth, value: true);
       emit(PhoneSuccessConfirmOtpState(userCredential.user!.uid));
+      print(
+          'login with phone => ${CacheHelper.getDate(key: AppKeys.userPhoneAuth)}');
 
       fetchUserData(userCredential.user!.uid);
 

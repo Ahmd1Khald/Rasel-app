@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:RASEL/Core/utils/constants/network_images.dart';
 import 'package:RASEL/core/utils/constants/functions.dart';
 import 'package:RASEL/core/utils/constants/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -106,6 +107,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         'phone': phoneController.text,
         'password': passController.text,
         'image': image,
+        'cover': AppNetworksImages.coverImage,
         'bio': 'Write your bio ...',
         'createdAt': AppFunctions.dateTimeFormatted('y'),
       }));

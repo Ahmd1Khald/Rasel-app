@@ -1,6 +1,5 @@
+import 'package:RASEL/Features/layout/presentation/views/layout/widgets/layout_widgets/layout_body.dart';
 import 'package:flutter/material.dart';
-
-import 'layout_widgets/layout_body.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({

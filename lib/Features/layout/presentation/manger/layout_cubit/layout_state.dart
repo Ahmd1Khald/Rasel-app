@@ -24,7 +24,7 @@ class LayoutBottomChangedState extends LayoutState {}
 
 class LayoutAddPostsState extends LayoutState {}
 
-class ChangeThemeState extends LayoutState {}
+class EditeProfileState extends LayoutState {}
 
 class LayoutErrorLogoutState extends LayoutState {
   final String errMessage;

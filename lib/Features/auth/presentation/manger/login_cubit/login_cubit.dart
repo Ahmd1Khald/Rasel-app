@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../../Core/utils/constants/network_images.dart';
 import '../../../../../core/utils/constants/variables.dart';
 
 part 'login_state.dart';
@@ -108,6 +109,7 @@ class LoginCubit extends Cubit<LoginState> {
         user.set(({
           'name': userCredential.user!.displayName,
           'email': userCredential.user!.email,
+          'cover': AppNetworksImages.coverImage,
           'phone': userCredential.user!.phoneNumber,
           'image': userCredential.user!.photoURL,
           'bio': 'Write your bio ...',

@@ -15,7 +15,7 @@ class AppColors {
   //static Color? appGrey = HexColor('#414142');
   //static Color? deepDark = HexColor('#1d1f25');
   //static Color? dark = HexColor('#252526');
-  static Color? midDark = HexColor('#4c5366');
+  static Color? sidesColor = HexColor('#4c5366');
   static Color? lightDark = HexColor('#2b303b');
   //static Color blue = HexColor('#4A86F7');
   //TO #4A86F7

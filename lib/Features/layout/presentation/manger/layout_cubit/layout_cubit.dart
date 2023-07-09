@@ -1,3 +1,4 @@
+import 'package:RASEL/Features/layout/presentation/views/users_screen/user_profile.dart';
 import 'package:RASEL/core/helpers/cachehelper.dart';
 import 'package:RASEL/core/utils/constants/keys.dart';
 import 'package:RASEL/core/utils/constants/variables.dart';
@@ -7,8 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../data/repos/repo.dart';
 import '../../views/feeds_screen/feeds_screen.dart';
-import '../../views/layout/layout_widgets/add_post.dart';
-import '../../views/users_screen/users_screen.dart';
+import '../../views/layout/widgets/layout_widgets/add_post.dart';
 import 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
@@ -34,7 +34,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Widget> widgets = [
     const FeedsScreen(),
     const AppPostScreen(),
-    const UsersScreen(),
+    UserProfile(),
   ];
 
   void bottomChanged({required int index}) {
@@ -54,6 +54,7 @@ class LayoutCubit extends Cubit<LayoutState> {
       await gSignIn.signOut();
       CacheHelper.removeData(key: AppKeys.userUid);
       CacheHelper.removeData(key: AppKeys.loginDone);
+      CacheHelper.removeData(key: AppKeys.userPhoneAuth);
       AppVariables.userPhoneAuth = false;
       emit(LayoutSuccessLogoutState());
     } catch (error) {

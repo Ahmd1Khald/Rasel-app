@@ -1,4 +1,3 @@
-import 'package:RASEL/Features/auth/presentation/views/login/widgets/login_components/email_textfield.dart';
 import 'package:RASEL/Features/auth/presentation/views/register/widgets/phone_textfield.dart';
 import 'package:RASEL/Features/auth/presentation/views/register/widgets/register_title.dart';
 import 'package:RASEL/Features/auth/presentation/views/register/widgets/user_put_image.dart';
@@ -11,9 +10,10 @@ import '../../../../../../core/utils/constants/functions.dart';
 import '../../../../../../core/widgets/components.dart';
 import '../../../manger/register_cubit/register_cubit.dart';
 import '../../login/widgets/login_components/last_text_auth.dart';
-import '../../login/widgets/login_components/password_textfield.dart';
+import 'email_textfield.dart';
 import 'login_button.dart';
 import 'name_textfield.dart';
+import 'password_textfield.dart';
 
 class RegisterBody extends StatelessWidget {
   const RegisterBody({

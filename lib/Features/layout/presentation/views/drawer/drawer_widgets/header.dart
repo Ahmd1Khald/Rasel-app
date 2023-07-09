@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../Core/utils/constants/colors.dart';
-import '../../../../../../Core/utils/constants/variables.dart';
 import '../../../../data/models/user_model.dart';
 
 class HeaderDrawer extends StatefulWidget {
@@ -24,7 +23,7 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
   Widget build(BuildContext context) {
     return DrawerHeader(
       decoration: BoxDecoration(
-        color: AppColors.midDark,
+        color: AppColors.sidesColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +66,7 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
                   SizedBox(
                     width: 200.w,
                     child: Text(
-                      AppVariables.userPhoneAuth == true
+                      widget.userdata!.phone?.isNotEmpty == true
                           ? 'User'
                           : widget.userdata!.name!,
                       maxLines: 1,
@@ -79,7 +78,7 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
                   SizedBox(
                     width: 200.w,
                     child: Text(
-                      AppVariables.userPhoneAuth == true
+                      widget.userdata!.phone?.isNotEmpty == true
                           ? widget.userdata!.phone!
                           : widget.userdata!.email!,
                       maxLines: 1,
