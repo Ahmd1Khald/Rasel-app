@@ -22,9 +22,9 @@ class FeedsScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => buildPostItem(context),
             separatorBuilder: (context, index) => SizedBox(
-              height: 4.h,
+              height: 6.h,
             ),
-            itemCount: 20,
+            itemCount: 5,
           )
         ],
       ),

@@ -1,12 +1,13 @@
+import 'package:RASEL/Core/utils/constants/network_images.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../Core/utils/constants/colors.dart';
 
 class UserCoverImage extends StatelessWidget {
-  const UserCoverImage({Key? key, required this.image}) : super(key: key);
-
-  final String image;
+  const UserCoverImage({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -18,7 +19,7 @@ class UserCoverImage extends StatelessWidget {
         child: CachedNetworkImage(
           fit: BoxFit.cover,
           width: double.infinity,
-          imageUrl: image,
+          imageUrl: AppNetworksImages.coverImage,
           // Replace with your image URL
           placeholder: (context, url) => LinearProgressIndicator(
             color: AppColors.lightGrey,

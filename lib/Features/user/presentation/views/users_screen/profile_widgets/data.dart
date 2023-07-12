@@ -15,7 +15,7 @@ class UserData extends StatelessWidget {
       children: [
         Text(
           type,
-          style: AppStyles.postUserName,
+          style: AppStyles.postUserName.copyWith(fontSize: 15.sp),
         ),
         SizedBox(
           height: 10.h,

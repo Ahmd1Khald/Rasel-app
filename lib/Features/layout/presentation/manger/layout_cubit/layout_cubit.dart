@@ -1,43 +1,48 @@
-import 'package:RASEL/Features/layout/presentation/views/users_screen/user_profile.dart';
 import 'package:RASEL/core/helpers/cachehelper.dart';
 import 'package:RASEL/core/utils/constants/keys.dart';
 import 'package:RASEL/core/utils/constants/variables.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../user/presentation/views/users_screen/user_profile.dart';
+import '../../../data/models/user_model.dart';
 import '../../../data/repos/repo.dart';
 import '../../views/feeds_screen/feeds_screen.dart';
 import '../../views/layout/widgets/layout_widgets/add_post.dart';
 import 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit(this.homeRepo) : super(LayoutInitial());
+  LayoutCubit(this.homeRepo, this.uid) : super(LayoutInitial());
 
   static LayoutCubit get(context) => BlocProvider.of(context);
 
   final LayoutRepo homeRepo;
+  final String uid;
+  UserModel? result;
 
   Future<void> fetchUserData({required String uid}) async {
     emit(LayoutLoadingFetchUserData());
-    var result = await homeRepo.fetchUserData(uid: uid);
+    var value = await homeRepo.fetchUserData(uid: uid);
 
-    result.fold((failer) {
+    value.fold((failer) {
       emit(LayoutErrorFetchUserData(failer.errMessage));
     }, (userData) {
       emit(LayoutSuccessFetchUserData(userData));
+      result = userData;
     });
   }
 
   int currentIndex = 0;
 
-  List<Widget> widgets = [
+  var widgets = [
     const FeedsScreen(),
     const AppPostScreen(),
-    UserProfile(),
+    UserProfile(uid: CacheHelper.getDate(key: AppKeys.userUid)),
   ];
 
-  void bottomChanged({required int index}) {
+  void bottomChanged({
+    required int index,
+  }) {
     if (index == 1) {
       emit(LayoutAddPostsState());
     } else {
