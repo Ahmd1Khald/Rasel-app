@@ -22,8 +22,9 @@ class LayoutBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) =>
-            LayoutCubit(LayoutRepoImplement(), uid)..fetchUserData(uid: uid),
+        create: (context) => LayoutCubit(
+              LayoutRepoImplement(),
+            )..fetchUserData(uid: uid),
         child: BlocConsumer<LayoutCubit, LayoutState>(
           listener: (context, state) {
             if (state is LayoutAddPostsState) {

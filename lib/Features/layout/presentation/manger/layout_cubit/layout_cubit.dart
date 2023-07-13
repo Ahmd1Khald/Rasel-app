@@ -12,15 +12,16 @@ import '../../views/layout/widgets/layout_widgets/add_post.dart';
 import 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit(this.homeRepo, this.uid) : super(LayoutInitial());
+  LayoutCubit(this.homeRepo) : super(LayoutInitial());
 
   static LayoutCubit get(context) => BlocProvider.of(context);
 
   final LayoutRepo homeRepo;
-  final String uid;
+  late String userId;
   UserModel? result;
 
   Future<void> fetchUserData({required String uid}) async {
+    userId = uid;
     emit(LayoutLoadingFetchUserData());
     var value = await homeRepo.fetchUserData(uid: uid);
 
